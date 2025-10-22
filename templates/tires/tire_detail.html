@@ -1,0 +1,37 @@
+{% extends "base.html" %}
+{% block title %}{{ tire.name }}{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+    <div class="row">
+        <div class="col-md-6">
+            <img src="{{ tire.image_url }}" class="img-fluid" alt="{{ tire.name }}">
+        </div>
+        <div class="col-md-6">
+            <h1>{{ tire.name }}</h1>
+            <p class="text-muted">Артикул: {{ tire.art }}</p>
+            
+            <div class="mb-3">
+                <h3 class="text-primary">{{ tire.price }} ₽</h3>
+                <p class="text-success">В наличии: {{ tire.quantity }} шт.</p>
+            </div>
+            
+            <div class="mb-4">
+                <h5>Характеристики:</h5>
+                <ul class="list-unstyled">
+                    <li><strong>Бренд:</strong> {{ tire.manufacturer }}</li>
+                    <li><strong>Модель:</strong> {{ tire.model }}</li>
+                    <li><strong>Сезон:</strong> {{ tire.season }}</li>
+                    <li><strong>Шипы:</strong> {% if tire.spikes %}Да{% else %}Нет{% endif %}</li>
+                    <!-- Добавьте другие характеристики по необходимости -->
+                </ul>
+            </div>
+            
+            <div class="d-flex gap-2">
+                <button class="btn btn-primary btn-lg">В корзину</button>
+                <button class="btn btn-outline-secondary btn-lg">В избранное</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

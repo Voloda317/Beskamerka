@@ -1,0 +1,271 @@
+{% extends "base.html" %}
+{% block title %}Диски{% endblock %}
+
+{% block content %}
+<div class="container mt-4">
+  <div class="row">
+    <!-- ===== Сайдбар фильтров ===== -->
+    <div class="col-lg-3 mb-4">
+      <div class="card shadow-sm">
+        <div class="card-body">
+          <form method="get" id="filter-form">
+            <!-- Тип диска -->
+            <h6 class="fw-semibold mb-3 border-bottom pb-2">Тип</h6>
+            <div class="mb-4">
+              {% for choice in filter.form.disk_type.field.choices %}
+              <div class="form-check">
+                <input class="form-check-input" type="radio" name="disk_type" value="{{ choice.0 }}" id="disk_type_{{ forloop.counter }}"
+                  {% if choice.0 == filter.form.disk_type.value %}checked{% endif %}>
+                <label class="form-check-label" for="disk_type_{{ forloop.counter }}">{{ choice.1 }}</label>
+              </div>
+              {% endfor %}
+            </div>
+
+            <!-- Ширина -->
+            <h6 class="fw-semibold mb-3 border-bottom pb-2">Ширина (B)</h6>
+            <div class="mb-4">
+              <select class="form-select form-select-sm" name="width">
+                <option value="">Все</option>
+                {% for width in filter.form.width.field.choices %}
+                <option value="{{ width.0 }}" {% if width.0 == filter.form.width.value %}selected{% endif %}>{{ width.1 }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <!-- Диаметр -->
+            <h6 class="fw-semibold mb-3 border-bottom pb-2">Диаметр (R)</h6>
+            <div class="mb-4">
+              <select class="form-select form-select-sm" name="diameter">
+                <option value="">Все</option>
+                {% for diameter in filter.form.diameter.field.choices %}
+                <option value="{{ diameter.0 }}" {% if diameter.0 == filter.form.diameter.value %}selected{% endif %}>{{ diameter.1 }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <!-- Количество болтов -->
+            <h6 class="fw-semibold mb-3 border-bottom pb-2">Количество болтов</h6>
+            <div class="mb-4">
+              <select class="form-select form-select-sm" name="bolts">
+                <option value="">Все</option>
+                {% for bolts in filter.form.bolts.field.choices %}
+                <option value="{{ bolts.0 }}" {% if bolts.0 == filter.form.bolts.value %}selected{% endif %}>{{ bolts.1 }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <!-- PCD -->
+            <h6 class="fw-semibold mb-3 border-bottom pb-2">PCD</h6>
+            <div class="mb-4">
+              <select class="form-select form-select-sm" name="pcd">
+                <option value="">Все</option>
+                {% for pcd in filter.form.pcd.field.choices %}
+                <option value="{{ pcd.0 }}" {% if pcd.0 == filter.form.pcd.value %}selected{% endif %}>{{ pcd.1 }}</option>
+                {% endfor %}
+              </select>
+            </div>
+
+            <h6 class="fw-semibold mb-3 border-bottom pb-2">DIA</h6>
+            <div class="mb-4">
+              {{ filter.form.dia }}
+            </div>
+
+            <h6 class="fw-semibold mb-3 border-bottom pb-2">ET</h6>
+            <div class="mb-4">
+              {{ filter.form.et }}
+            </div>
+
+            <!-- Производитель и Модель -->
+            <div class="accordion mb-3" id="accordionFilters">
+              <!-- Производитель -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingBrand">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseBrand" aria-expanded="false" aria-controls="collapseBrand">
+                    Производитель
+                  </button>
+                </h2>
+                <div id="collapseBrand" class="accordion-collapse collapse" aria-labelledby="headingBrand"
+                  data-bs-parent="#accordionFilters">
+                  <div class="accordion-body">
+                    <!-- Поле поиска для производителя с иконкой -->
+                    <div class="input-group input-group-sm mb-2">
+                      <span class="input-group-text">
+                        <i class="bi bi-search"></i>
+                      </span>
+                      <input type="text" class="form-control" id="searchBrand" placeholder="Поиск">
+                    </div>
+                    
+                    <!-- Список брендов с прокруткой -->
+                    <div class="brand-list" style="max-height: 200px; overflow-y: auto;">
+                      {% for choice in filter.form.brand.field.choices %}
+                      <div class="form-check brand-item">
+                        <input class="form-check-input" type="checkbox" name="brand" value="{{ choice.0 }}" id="brand_{{ forloop.counter }}"
+                          {% if choice.0 in filter.form.brand.value %}checked{% endif %}>
+                        <label class="form-check-label small" for="brand_{{ forloop.counter }}">{{ choice.1 }}</label>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- Модель -->
+              <div class="accordion-item">
+                <h2 class="accordion-header" id="headingModel">
+                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                    data-bs-target="#collapseModel" aria-expanded="false" aria-controls="collapseModel">
+                    Модель
+                  </button>
+                </h2>
+                <div id="collapseModel" class="accordion-collapse collapse" aria-labelledby="headingModel"
+                  data-bs-parent="#accordionFilters">
+                  <div class="accordion-body">
+                    <!-- Поле поиска для модели с иконкой -->
+                    <div class="input-group input-group-sm mb-2">
+                      <span class="input-group-text">
+                        <i class="bi bi-search"></i>
+                      </span>
+                      <input type="text" class="form-control" id="searchModel" placeholder="Поиск">
+                    </div>
+                    
+                    <!-- Список моделей с прокруткой -->
+                    <div class="model-list" style="max-height: 200px; overflow-y: auto;">
+                      {% for choice in filter.form.model.field.choices %}
+                      <div class="form-check model-item">
+                        <input class="form-check-input" type="checkbox" name="model" value="{{ choice.0 }}" id="model_{{ forloop.counter }}"
+                          {% if choice.0 in filter.form.model.value %}checked{% endif %}>
+                        <label class="form-check-label small" for="model_{{ forloop.counter }}">{{ choice.1 }}</label>
+                      </div>
+                      {% endfor %}
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <!-- Кнопки -->
+            <div class="d-grid gap-2">
+              <button type="submit" class="btn btn-primary">Показать</button>
+              <a href="{% url 'disks:disks' %}" class="btn btn-outline-secondary">Сбросить</a>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+
+    <!-- ===== Карточки дисков ===== -->
+    <div class="col-lg-9">
+      <div class="d-flex justify-content-between align-items-center mb-3">
+        <h5>Найдено дисков: {{ disks.count }}</h5>
+        {% if request.GET %}
+        <a href="{% url 'disks:disks' %}" class="btn btn-sm btn-outline-secondary">Сбросить фильтры</a>
+        {% endif %}
+      </div>
+
+      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+        {% for disk in disks %}
+        <div class="col d-flex align-items-stretch">
+          <div class="card h-100 shadow-sm d-flex flex-column">
+            <img src="{{ disk.img }}" class="card-img-top" alt="{{ disk.name }}" style="object-fit: contain; height: 200px;">
+            <div class="card-body d-flex flex-column">
+              <!-- Исправлено: убрал text-truncate, добавил стили для переноса -->
+              <h6 class="card-title" style="word-wrap: break-word; overflow-wrap: break-word; line-height: 1.3; min-height: 2.6em;">{{ disk.name }}</h6>
+              <div class="small text-muted mb-2">
+                <div><strong>Артикул:</strong> {{ disk.art }}</div>
+                <div><strong>Бренд:</strong> {{ disk.manufacturer }}</div>
+                <div><strong>Модель:</strong> {{ disk.model }}</div>
+              </div>
+              <div class="fw-bold text-primary mb-2">{{ disk.price }} ₽</div>
+              <div class="small {% if disk.quantity > 0 %}text-success{% else %}text-danger{% endif %} mb-3">
+                В наличии: {{ disk.quantity }} шт.
+              </div>
+              <div class="mt-auto d-flex gap-2 align-items-center">
+                {% if disk.quantity > 0 %}
+                <a href="#" class="btn btn-sm btn-primary flex-fill">В корзину</a>
+                {% else %}
+                <button class="btn btn-sm btn-secondary flex-fill" disabled>Нет в наличии</button>
+                {% endif %}
+                <a href="#" class="btn btn-sm btn-outline-secondary flex-fill">Подробнее</a>
+                <a href="#" class="btn btn-outline-danger btn-sm">
+                  <i class="bi bi-heart"></i> 
+                </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        {% empty %}
+        <div class="col-12">
+          <div class="text-center py-5">
+            <h4 class="text-muted mt-3">Диски не найдены</h4>
+            <p class="text-muted">Попробуйте изменить параметры фильтра</p>
+            <a href="{% url 'disks:disks' %}" class="btn btn-primary">Сбросить фильтры</a>
+          </div>
+        </div>
+        {% endfor %}
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// Функция для поиска в списках аккордеона
+function setupAccordionSearch(inputId, itemClass) {
+    const searchInput = document.getElementById(inputId);
+    const items = document.querySelectorAll('.' + itemClass);
+    
+    searchInput.addEventListener('input', function() {
+        const searchTerm = this.value.toLowerCase();
+        
+        items.forEach(item => {
+            const label = item.querySelector('.form-check-label');
+            const text = label.textContent.toLowerCase();
+            
+            if (text.includes(searchTerm)) {
+                item.style.display = 'block';
+            } else {
+                item.style.display = 'none';
+            }
+        });
+    });
+}
+
+// Инициализация поиска для аккордеона
+document.addEventListener('DOMContentLoaded', function() {
+    setupAccordionSearch('searchBrand', 'brand-item');
+    setupAccordionSearch('searchModel', 'model-item');
+});
+</script>
+
+<style>
+.brand-list::-webkit-scrollbar,
+.model-list::-webkit-scrollbar {
+    width: 4px;
+}
+.brand-list::-webkit-scrollbar-track,
+.model-list::-webkit-scrollbar-track {
+    background: #f1f1f1;
+}
+.brand-list::-webkit-scrollbar-thumb,
+.model-list::-webkit-scrollbar-thumb {
+    background: #c1c1c1;
+    border-radius: 2px;
+}
+.brand-list::-webkit-scrollbar-thumb:hover,
+.model-list::-webkit-scrollbar-thumb:hover {
+    background: #a8a8a8;
+}
+.form-check {
+    margin-bottom: 0.3rem;
+}
+.form-check-label {
+    font-size: 0.85rem;
+}
+.brand-list,
+.model-list {
+    border: 1px solid #e9ecef;
+    border-radius: 0.375rem;
+    padding: 0.5rem;
+}
+</style>
+{% endblock %}
