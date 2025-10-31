@@ -6,6 +6,8 @@ class AkbListView(ListView):
     model = Akb
     template_name = 'akb/akb.html'   # убедись, что шаблон лежит по этому пути
     context_object_name = 'akbs'
+    paginate_by = 24
+    ordering = ['-id']
 
     def get_queryset(self):
         qs = super().get_queryset().order_by('brand', 'model')

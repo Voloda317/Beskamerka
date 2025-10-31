@@ -7,6 +7,9 @@ class DiskListView(ListView):
     model = Disk 
     template_name = 'disks/disks.html'
     context_object_name = 'disks'
+    paginate_by = 24
+    ordering = ['-id']
+    
 
     def get_queryset(self):
         queryset = super().get_queryset()
