@@ -1,0 +1,126 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+Услуги шиномонтажа
+{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+  <div class="row mb-4">
+    <div class="col-12">
+      <p class="fs-5">
+        Оказываем комплекс услуг по шиномонтажу, ремонту и сезонному хранению колес.
+        Нужно привести автомобиль в порядок? Команда профессионалов Бескамерка ждет вас в любое время!
+        Выполним работы в кратчайшие сроки и обезопасим вашу езду на дорогах.
+        Мы предоставляем гарантию на наши услуги, чтобы вы не думали о качестве, а сосредоточились на комфорте.
+      </p>
+    </div>
+  </div>
+
+  <!-- Сетка карточек -->
+  <div class="row g-4">
+
+    <!-- Шиномонтаж -->
+    <div class="col-md-4">
+      <a href="{% url 'services:tire_services' %}" class="card-link">
+        <div class="card h-100 shadow-sm service-card">
+          <img src="{% static 'img/services/glav_services/tire_service.jpg' %}" class="card-img-top" alt="Шиномонтаж">
+          <div class="card-body">
+            <h5 class="card-title text-center">Шиномонтаж</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Балансировка -->
+    <div class="col-md-4">
+      <a href="#" class="card-link">
+        <div class="card h-100 shadow-sm service-card">
+          <img src="{% static 'img/services/glav_services/services_balance.jpg' %}" class="card-img-top" alt="Балансировка колес">
+          <div class="card-body text-center">
+            <h5 class="card-title">Балансировка колес</h5>
+            <p class="fw-bold text-dark">от 500 р.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Правка дисков -->
+    <div class="col-md-4">
+      <a href="{% url 'services:pravka' %}" class="card-link">
+        <div class="card h-100 shadow-sm service-card">
+          <img src="{% static 'img/services/glav_services/disc_repair.jpg' %}" class="card-img-top" alt="Правка дисков">
+          <div class="card-body text-center">
+            <h5 class="card-title">Правка дисков</h5>
+            <p class="fw-bold text-dark">от 300 р.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Ремонт резины -->
+    <div class="col-md-4">
+      <a href="{% url 'services:remont' %}" class="card-link">
+        <div class="card h-100 shadow-sm service-card">
+          <img src="{% static 'img/services/glav_services/tire_repair.jpg' %}" class="card-img-top" alt="Ремонт резины">
+          <div class="card-body text-center">
+            <h5 class="card-title">Ремонт резины</h5>
+            <p class="fw-bold text-dark">1000 р.</p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Сезонное хранение -->
+    <div class="col-md-4">
+      <a href="#" class="card-link">
+        <div class="card h-100 shadow-sm service-card">
+          <img src="{% static 'img/services/glav_services/services_storage.jpg' %}" class="card-img-top" alt="Сезонное хранение">
+          <div class="card-body text-center">
+            <h5 class="card-title">Сезонное хранение</h5>
+            <p class="fw-bold text-dark">4 000 р. <span class="text-muted text-decoration-line-through">5 000 р.</span></p>
+          </div>
+        </div>
+      </a>
+    </div>
+
+    <!-- Прайс-лист -->
+    <div class="col-md-4">v
+      <a href="#" class="card-link">
+        <div class="card h-100 shadow-sm service-card">
+          <img src="{% static 'img/services/glav_services/price_list.jpg' %}" class="card-img-top" alt="Прайс-лист">
+          <div class="card-body text-center">
+            <h5 class="card-title">Прайс-лист на услуги</h5>
+          </div>
+        </div>
+      </a>
+    </div>
+
+  </div>
+</div>
+
+<!-- Эффекты для карточек -->
+<style>
+.card-link {
+  text-decoration: none;
+  color: inherit;
+}
+
+.service-card {
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+  border: none;
+  border-radius: 10px;
+}
+
+.service-card:hover {
+  transform: translateY(-5px) scale(1.03);
+  box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+}
+
+.service-card img {
+  border-top-left-radius: 10px;
+  border-top-right-radius: 10px;
+}
+</style>
+{% endblock %}

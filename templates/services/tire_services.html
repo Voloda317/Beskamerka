@@ -1,0 +1,95 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Шиномонтаж — услуги сервиса{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="position-relative">
+  <!-- Фон-фото -->
+  <img src="{% static 'img/services/tires-hero.jpg' %}"
+       class="w-100 object-fit-cover"
+       style="height: 420px;"
+       alt="Шиномонтаж">
+
+  <!-- Тёмная подложка для читаемости текста -->
+  <div class="position-absolute top-0 start-0 w-100 h-100"
+       style="background: rgba(0,0,0,.35);"></div>
+
+  <!-- Текст поверх фото -->
+  <div class="position-absolute top-50 start-50 translate-middle w-100">
+    <div class="container text-white">
+      <div class="col-12 col-lg-7">
+        <h1 class="display-6 fw-bold mb-2">Шиномонтаж</h1>
+        <p class="lead mb-4">
+          Шиномонтаж любой сложности. Комплект R15 от 700&nbsp;₽/сутки
+        </p>
+        <div class="d-flex gap-2">
+          <a href="#order" class="btn btn-warning btn-lg px-4">Заказать услугу</a>
+          <a href="#ask" class="btn btn-outline-light btn-lg px-4">Задать вопрос</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Хлебные крошки -->
+<nav class="py-3" aria-label="breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb mb-0">
+      <li class="breadcrumb-item"><a href="/">Главная</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'services:services' %}">Услуги</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Шиномонтаж</li>
+    </ol>
+  </div>
+</nav>
+
+<!-- Контент -->
+<section class="py-4">
+  <div class="container">
+    <h2 class="h3 mb-4">Шиномонтаж</h2>
+
+    <p>
+      Каждый автомобилист знает, насколько важным элементом его автомобиля являются правильно подобранные шины.
+      Для обеспечения безопасности на дороге и комфорта управления автомобилем необходимо правильно провести шиномонтаж.
+      Доверив этот вопрос профессионалам, вы сэкономите время и получите гарантию качества.
+    </p>
+    <p>
+      Мы выполняем шиномонтаж на современном оборудовании, а опыт наших сотрудников позволяет обеспечить быстрое
+      и аккуратное выполнение работ, включая замену изношенной или сезонной резины.
+    </p>
+
+    <h3 class="h5 mt-4">В услугу может входить:</h3>
+    <ul class="list-unstyled small mb-4">
+      <li class="mb-1">— снятие колеса</li>
+      <li class="mb-1">— демонтаж покрышки</li>
+      <li class="mb-1">— правка колесного диска</li>
+      <li class="mb-1">— балансировка</li>
+      <li class="mb-1">— мойка</li>
+      <li class="mb-1">— установка новой покрышки</li>
+      <li class="mb-1">— установка колеса</li>
+    </ul>
+
+    <p>
+      Проводим работы с любыми типами шин, камерными и бескамерными, устраняем проколы и порезы, выполняем замену
+      зимней и летней резины. Можно записаться по телефону, а также оставить онлайн-заявку.
+    </p>
+
+    <!-- CTA-бокс -->
+    <div class="border rounded-3 p-4 mt-5 bg-light d-flex align-items-center justify-content-between flex-wrap gap-3">
+      <div class="d-flex align-items-center gap-3">
+        <i class="bi bi-chat-square-text fs-3"></i>
+        <span class="fw-medium">
+          Оформите заявку на сайте — мы свяжемся с вами в ближайшее время и ответим на все вопросы.
+        </span>
+      </div>
+      <a id="order" href="#" class="btn btn-warning btn-lg px-4">Заказать услугу</a>
+    </div>
+
+    <!-- Якорь для кнопки "Задать вопрос" -->
+    <div id="ask" class="mt-4"></div>
+  </div>
+</section>
+
+{% endblock %}

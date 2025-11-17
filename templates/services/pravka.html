@@ -1,0 +1,122 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Правка дисков{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="position-relative">
+  <div class="ratio" style="--bs-aspect-ratio: 22%;">
+    <div
+      class="w-100 h-100"
+      style="
+        background-image:
+          linear-gradient(90deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.15) 50%, rgba(0,0,0,0) 100%),
+          url('{% static 'img/services/pravka.jpg' %}');
+        background-size: cover;
+        background-position: center;
+      ">
+    </div>
+  </div>
+
+  <!-- Текст на баннере -->
+  <div class="container">
+    <div class="position-absolute top-0 start-0 w-100" style="padding-top: min(8vw, 4rem);">
+      <div class="text-white" style="max-width: 420px; margin-left: .5rem;">
+        <div class="bg-dark bg-opacity-50 d-inline-block px-2 py-1 fw-semibold rounded-1">
+          Правка дисков
+        </div>
+        <p class="mt-3 mb-3 small">
+          Восстановление геометрии литых дисков.<br>
+          Быстро и качественно — гарантия 100%!
+        </p>
+        <a href="#" class="btn btn-warning btn-sm fw-semibold px-3">Заказать услугу</a>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- КОНТЕНТ -->
+<section class="py-4 py-md-5 bg-white">
+  <div class="container">
+
+    <!-- Хлебные крошки -->
+    <nav aria-label="breadcrumb" class="mb-3">
+      <ol class="breadcrumb small mb-0">
+        <li class="breadcrumb-item"><a href="/">Главная</a></li>
+        <li class="breadcrumb-item"><a href="/services/">Услуги</a></li>
+        <li class="breadcrumb-item active" aria-current="page">Правка дисков</li>
+      </ol>
+    </nav>
+
+    <!-- Заголовок + иконка поделиться (как на скрине) -->
+    <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
+      <h1 class="h3 mb-0">Правка дисков</h1>
+      <button class="btn btn-link text-muted p-0" type="button" title="Поделиться">
+        <i class="bi bi-share"></i>
+      </button>
+    </div>
+
+    <!-- Текстовый блок -->
+    <div class="row">
+      <div class="col-12 col-lg-10">
+        <p>
+          Колёсные диски составляют основу колеса и не нужно говорить о том, насколько важна их роль.
+          В наших реалиях езда по городу не всегда напоминает приятную прогулку и никто не застрахован
+          от наезда на яму или другую неровность дороги. Зачастую это приводит к неприятным последствиям,
+          вплоть до полной непригодности колёсного диска. Однако далеко не всегда подобные ситуации требуют
+          замены деформированной детали — ведь существует возможность ремонта. Мы выполняем правку штампованных
+          и литых дисков любого радиуса.
+        </p>
+
+        <p class="mb-2">Что делаем в рамках услуги:</p>
+        <ul class="list-unstyled ps-3 mb-4">
+          <li class="mb-1">— устранение деформаций прокаткой;</li>
+          <li class="mb-1">— сварка трещин;</li>
+          <li class="mb-1">— выправка вмятин;</li>
+          <li>— устранение «осевого биения».</li>
+        </ul>
+
+        <p>
+          Современное оборудование и предварительная диагностика гарантируют точность измерений и
+          обеспечивают возможность предложить оптимальный вариант по соотношению стоимость/качество/надёжность.
+          Высококвалифицированные специалисты выполнят работы в обозначенный срок и дадут рекомендации
+          по подбору дисков для вашего автомобиля.
+        </p>
+
+        <p>
+          Суть метода заключается в том, что повреждённый диск после диагностики устанавливается в станок
+          и при помощи специальных валиков приводится к изначальной форме прокатыванием. В первую очередь
+          устраняются серьёзные повреждения, затем производится точная доводка обода колеса.
+        </p>
+
+        <!-- Инфоблок с ценой и кнопкой -->
+        <div class="bg-body-tertiary rounded-3 border mt-4">
+          <div class="row align-items-center g-0">
+            <div class="col-12 col-md-7">
+              <div class="p-4">
+                <div class="d-flex align-items-start gap-3">
+                  <div class="fs-2 lh-1"><i class="bi bi-clipboard2-check"></i></div>
+                  <p class="mb-0 small">
+                    Оформите заявку на сайте — мы свяжемся с вами в ближайшее время и ответим на все интересующие вопросы.
+                  </p>
+                </div>
+              </div>
+            </div>
+            <div class="col-6 col-md-2 text-center">
+              <div class="fw-semibold">от 300&nbsp;р.</div>
+            </div>
+            <div class="col-6 col-md-3 text-center">
+              <a href="#" class="btn btn-warning fw-semibold my-3 px-4">Заказать услугу</a>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </div>
+
+  </div>
+</section>
+
+{% endblock %}

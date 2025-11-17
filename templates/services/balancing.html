@@ -1,0 +1,129 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Балансировка колёс — услуги сервиса{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="position-relative overflow-hidden">
+  <!-- фоновая картинка -->
+  <div class="w-100" style="
+      background: url('{% static 'img/services/balance/hero-bg.jpg' %}') center/cover no-repeat;
+      height: 360px;">
+  </div>
+
+  <!-- полупрозрачный градиент для читаемости -->
+  <div class="position-absolute top-0 start-0 w-100 h-100" style="background: linear-gradient(90deg, rgba(255,255,255,.85) 0%, rgba(255,255,255,.4) 55%, rgba(255,255,255,0) 100%);"></div>
+
+  <!-- контент поверх -->
+  <div class="position-absolute top-50 start-50 translate-middle w-100">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-lg-6">
+          <h1 class="display-6 fw-semibold mb-2">Балансировка колёс</h1>
+          <p class="lead mb-4">Балансировка колёс любого размера. Комплект R15 от 200 ₽</p>
+          <div class="d-flex gap-2">
+            <a href="#order" class="btn btn-warning btn-lg px-4">Заказать услугу</a>
+            <a href="#ask" class="btn btn-outline-primary btn-lg px-4">Задать вопрос</a>
+          </div>
+        </div>
+        <div class="col-12 col-lg-6 text-center d-none d-lg-block">
+          <img src="{% static 'img/services/hero-bg.jpg' %}" alt="Станок для балансировки"
+               class="img-fluid" style="max-height: 280px;">
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ХЛЕБНЫЕ КРОШКИ -->
+<nav class="py-3" aria-label="breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb mb-0 small">
+      <li class="breadcrumb-item"><a href="/">Главная</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'services:services' %}">Услуги</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Балансировка колёс</li>
+    </ol>
+  </div>
+</nav>
+
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<section class="pb-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Левое меню -->
+      <aside class="col-lg-3">
+        <div class="list-group list-group-flush shadow-sm rounded-3 overflow-hidden">
+          <a class="list-group-item list-group-item-action" href="{% url 'services:tire_services' %}">Шиномонтаж</a>
+          <a class="list-group-item list-group-item-action active" aria-current="true" href="#">
+            Балансировка колёс
+          </a>
+          <a class="list-group-item list-group-item-action" href="#">Правка дисков</a>
+          <a class="list-group-item list-group-item-action" href="#">Ремонт резины</a>
+          <a class="list-group-item list-group-item-action" href="#">Сезонное хранение</a>
+          <a class="list-group-item list-group-item-action" href="#">Прайс-лист на услуги</a>
+        </div>
+
+        <!-- Блок вопроса -->
+        <div class="border rounded-3 p-3 mt-4 bg-light">
+          <div class="d-flex align-items-center gap-3 mb-2">
+            <i class="bi bi-chat-square-text fs-3 text-primary"></i>
+            <strong>Есть вопросы?</strong>
+          </div>
+          <p class="small mb-3">Наши специалисты ответят на любой интересующий вопрос по услуге.</p>
+          <a id="ask" href="#order" class="btn btn-outline-primary w-100">Задать вопрос</a>
+        </div>
+      </aside>
+
+      <!-- Текст -->
+      <article class="col-lg-9">
+        <h2 class="h3 mb-3">Балансировка колёс</h2>
+
+        <p>Для максимального комфорта вождения важно, чтобы масса каждого колеса была равномерна относительно центра тяжести. Несоблюдение этого условия приводит к целому ряду неприятных и, порой, опасных последствий, а именно:</p>
+
+        <ul class="small mb-4">
+          <li class="mb-2">— Снижение управляемости автомобиля и «биение» руля. Особенно опасно на высоких скоростях.</li>
+          <li class="mb-2">— Неровномерный износ шин и увеличение тормозного пути.</li>
+          <li class="mb-2">— Повышенная нагрузка на элементы подвески и риск аварийных ситуаций.</li>
+        </ul>
+
+        <p>Мы используем современное балансировочное оборудование, соответствующее требованиям производителей. Специалисты выполнят работу по выявлению отклонений колёс от нормы и приведут параметры в соответствие. На все работы распространяется гарантия.</p>
+
+        <!-- CTA-бокс с ценой -->
+        <div class="border rounded-3 p-4 mt-4 bg-light d-flex align-items-center justify-content-between flex-wrap gap-3">
+          <div class="d-flex align-items-center gap-3">
+            <i class="bi bi-clipboard-check fs-3 text-primary"></i>
+            <span class="fw-medium">
+              Оформите заявку на сайте — мы свяжемся с вами в ближайшее время и ответим на все интересующие вопросы.
+            </span>
+          </div>
+          <div class="ms-auto text-end">
+            <div class="small text-muted">Стоимость</div>
+            <div class="fs-5 fw-semibold">от 500 ₽</div>
+          </div>
+          <a id="order" href="#" class="btn btn-warning btn-lg px-4">Заказать услугу</a>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<!-- ЛЁГКИЕ СТИЛИ СТРАНИЦЫ -->
+<style>
+/* активный пункт слева */
+.list-group-item.active{
+  background-color:#0d6efd;
+  border-color:#0d6efd;
+}
+
+/* лёгкое появление карточек и кнопок */
+.list-group-item,
+.btn,
+.border { transition: all .2s ease; }
+
+/* тень у бокового меню */
+.list-group { box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+</style>
+
+{% endblock %}

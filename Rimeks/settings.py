@@ -46,7 +46,7 @@ INSTALLED_APPS = [
     'django_filters',
     'akb',
     'sale',
-
+    'services',
 ]
 
 MIDDLEWARE = [

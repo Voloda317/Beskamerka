@@ -1,0 +1,90 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+
+<!-- БАННЕР -->
+<div class="position-relative">
+    <img src="{% static 'img/services/qwe.jpg' %}"
+         alt="Ремонт резины"
+         class="img-fluid w-100"
+         style="max-height: 320px; object-fit: cover;">
+    <div class="position-absolute top-50 start-0 translate-middle-y ms-5 text-white">
+        <h1 class="display-4 fw-bold mb-2">Ремонт резины</h1>
+        <p class="fs-5 mb-0">
+            Боковой порез, прокол, прочностная авария,<br>
+            вулканизация и индивидуальный подход
+        </p>
+    </div>
+</div>
+
+<!-- КОНТЕНТ -->
+<div class="container py-4">
+
+    <!-- Хлебные крошки + иконка -->
+    <div class="d-flex justify-content-between align-items-center mb-2">
+        <nav aria-label="breadcrumb">
+            <ol class="breadcrumb mb-0 small text-muted">
+                <li class="breadcrumb-item"><a href="/" class="text-decoration-none text-muted">Главная</a></li>
+                <li class="breadcrumb-item"><a href="/services/" class="text-decoration-none text-muted">Услуги</a></li>
+                <li class="breadcrumb-item active text-muted" aria-current="page">Ремонт резины</li>
+            </ol>
+        </nav>
+        <i class="bi bi-share fs-4 text-muted"></i>
+    </div>
+
+    <!-- Заголовок -->
+    <h1 class="fw-semibold mb-4">Ремонт резины</h1>
+
+    <div class="row">
+        <!-- ЛЕВАЯ КОЛОНКА -->
+        <div class="col-md-3 mb-4">
+            <div class="border bg-white">
+                <div class="list-group list-group-flush">
+                    <a href="/services/tire-mount/" class="list-group-item list-group-item-action">
+                        Шиномонтаж
+                    </a>
+                    <a href="/services/balance/" class="list-group-item list-group-item-action">
+                        Балансировка колес
+                    </a>
+                    <a href="/services/disc-repair/" class="list-group-item list-group-item-action">
+                        Правка дисков
+                    </a>
+                    <span class="list-group-item bg-warning text-white fw-semibold">
+                        Ремонт резины
+                    </span>
+                </div>
+            </div>
+        </div>
+
+        <!-- ПРАВАЯ КОЛОНКА -->
+        <div class="col-md-9">
+            <div class="fs-5">
+                <p>
+                    Покрышки любого автомобиля испытывают огромные нагрузки каждую поездку. Это приводит к естественному износу шин, что повышает вероятность повреждения. Да и банальный прокол при наезде на острый камень или боковой порез при неаккуратной парковке случаи достаточно частые. В такой ситуации можно заменить шину полностью, отдав значительную сумму либо обратиться в специализированный сервис и произвести ремонт поврежденной покрышки.
+                </p>
+
+                <p class="fw-semibold mb-2">
+                    Повреждения автопокрышек условно можно разделить на 3 вида:
+                </p>
+
+                <ul class="list-unstyled">
+                    <li class="mb-1">
+                        &mdash; <strong>Радиальный прокол/порез.</strong> Возникает в случае наезда колеса на острый предмет.
+                    </li>
+                    <li class="mb-1">
+                        &mdash; <strong>Боковой порез.</strong> Повреждение боковой части шины в результате удара или износа.
+                    </li>
+                    <li class="mb-1">
+                        &mdash; <strong>Грыжа.</strong> Вспучивание из-за разрушения внутреннего корда.
+                    </li>
+                </ul>
+
+                <p>
+                    Само собой, каждый из данных видов повреждений требует особого подхода и разных усилий. Однако общее правило для них неизменно – ремонт должен производить профессионал с использованием качественных материалов и точного оборудования. Это и отличает ремонт своими силами или в гаражном сервисе от работы компании Тайрес. Наши специалисты оценят характер повреждений, произведут оценку и устранят повреждение на шине Вашего автомобиля быстро и качественно. Гарантия на данный вид работ позволит Вам не волноваться по поводу повторного обращения с той же проблемой - мы всегда выполняем работу на совесть.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+
+{% endblock %}
