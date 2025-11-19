@@ -1,528 +1,123 @@
-{% extends "base.html" %} 
-{% block title %}Подбор шин и дисков{% endblock %}
+{% extends 'base.html' %}
+{% load static %}
+
+{% block title %}Rimeks — онлайн-платформа автотоваров{% endblock %}
 
 {% block content %}
-<style>
-/* Локальные стили только для этой страницы */
-.page-picker {
-  background: white;
-  border-radius: 16px;
-  box-shadow: 0 4px 20px rgba(0,0,0,0.08);
-  padding: 30px;
-  background: linear-gradient(135deg, #ffffff 0%, #f8fafc 100%);
-}
+<div class="bg-light py-5">
+  <div class="container">
 
-.page-picker h1 {
-  text-align: center;
-  margin-bottom: 30px;
-  color: #1a365d;
-  font-weight: 700;
-  font-size: 2.2rem;
-  background: linear-gradient(135deg, #2c3e50 0%, #3498db 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  background-clip: text;
-}
+    <div class="row justify-content-center mb-5">
+      <div class="col-lg-10">
+        <div class="card border-0 shadow-sm">
+          <div class="card-body p-4 p-md-5">
+            <h1 class="h3 text-center mb-4">Добро пожаловать в Rimeks</h1>
 
-.page-tabs {
-  display: flex;
-  gap: 8px;
-  margin-bottom: 24px;
-  border-bottom: 2px solid #e2e8f0;
-  padding-bottom: 8px;
-  flex-wrap: wrap;
-}
-
-.page-tab {
-  padding: 12px 24px;
-  cursor: pointer;
-  background: #f7fafc;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px 12px 0 0;
-  font-weight: 600;
-  color: #64748b;
-  transition: all 0.3s ease;
-  flex: 1;
-  min-width: 160px;
-  text-align: center;
-  position: relative;
-  overflow: hidden;
-}
-
-.page-tab:before {
-  content: '';
-  position: absolute;
-  bottom: 0;
-  left: 50%;
-  width: 0;
-  height: 3px;
-  background: linear-gradient(90deg, #3498db, #2980b9);
-  transition: all 0.3s ease;
-  transform: translateX(-50%);
-}
-
-.page-tab:hover {
-  background: #edf2f7;
-  color: #2d3748;
-  border-color: #cbd5e0;
-  transform: translateY(-2px);
-}
-
-.page-tab.active {
-  background: #3498db;
-  color: white;
-  border-color: #3498db;
-  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
-  transform: translateY(-2px);
-}
-
-.page-tab.active:before {
-  width: 100%;
-}
-
-.form-container {
-  display: none;
-  padding: 24px;
-  border: 2px solid #e2e8f0;
-  border-radius: 12px;
-  background: white;
-  box-shadow: 0 2px 8px rgba(0,0,0,0.05);
-  animation: fadeIn 0.4s ease-in-out;
-}
-
-@keyframes fadeIn {
-  from { opacity: 0; transform: translateY(10px); }
-  to { opacity: 1; transform: translateY(0); }
-}
-
-.form-container.active {
-  display: block;
-}
-
-.form-group {
-  margin-bottom: 20px;
-}
-
-.form-label {
-  display: block;
-  margin-bottom: 8px;
-  font-weight: 600;
-  color: #2d3748;
-  font-size: 0.95rem;
-}
-
-.form-control, .form-select {
-  width: 100%;
-  padding: 12px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  font-size: 1rem;
-  transition: all 0.3s ease;
-  background: white;
-}
-
-.form-control:focus, .form-select:focus {
-  outline: none;
-  border-color: #3498db;
-  box-shadow: 0 0 0 3px rgba(52, 152, 219, 0.1);
-  transform: translateY(-1px);
-}
-
-.button-full {
-  background: linear-gradient(135deg, #3498db 0%, #2980b9 100%);
-  color: white;
-  border: none;
-  padding: 14px 20px;
-  border-radius: 10px;
-  font-weight: 600;
-  font-size: 1rem;
-  width: 100%;
-  transition: all 0.3s ease;
-  cursor: pointer;
-  box-shadow: 0 4px 12px rgba(52, 152, 219, 0.3);
-  position: relative;
-  overflow: hidden;
-}
-
-.button-full:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 16px rgba(52, 152, 219, 0.4);
-  background: linear-gradient(135deg, #2980b9 0%, #2471a3 100%);
-}
-
-.button-full:active {
-  transform: translateY(0);
-}
-
-.season-selector {
-  display: flex;
-  gap: 20px;
-  align-items: center;
-  flex-wrap: wrap;
-}
-
-.season-option {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-  padding: 10px 16px;
-  border: 2px solid #e2e8f0;
-  border-radius: 8px;
-  cursor: pointer;
-  transition: all 0.3s ease;
-  background: white;
-  flex: 1;
-  min-width: 120px;
-  justify-content: center;
-}
-
-.season-option:hover {
-  border-color: #3498db;
-  background: #f0f9ff;
-}
-
-.season-option input[type="radio"] {
-  margin: 0;
-  transform: scale(1.2);
-}
-
-.season-option label {
-  margin: 0;
-  cursor: pointer;
-  font-weight: 500;
-  color: #4a5568;
-}
-
-.help-link {
-  text-align: center;
-  margin-top: 20px;
-  color: #3498db;
-  cursor: pointer;
-  text-decoration: none;
-  font-weight: 500;
-  transition: all 0.3s ease;
-  display: inline-block;
-  padding: 8px 16px;
-  border-radius: 6px;
-}
-
-.help-link:hover {
-  color: #2980b9;
-  background: #f0f9ff;
-  transform: translateY(-1px);
-}
-
-/* Адаптивность для планшетов */
-@media (max-width: 768px) {
-  .page-picker {
-    padding: 20px;
-    border-radius: 12px;
-    margin: 10px;
-  }
-  
-  .page-picker h1 {
-    font-size: 1.8rem;
-    margin-bottom: 24px;
-  }
-  
-  .page-tabs {
-    flex-direction: column;
-    gap: 4px;
-  }
-  
-  .page-tab {
-    min-width: 100%;
-    border-radius: 8px;
-    margin-bottom: 4px;
-  }
-  
-  .page-tab:before {
-    display: none;
-  }
-  
-  .form-container {
-    padding: 20px;
-  }
-  
-  .season-selector {
-    flex-direction: column;
-    gap: 12px;
-  }
-  
-  .season-option {
-    min-width: 100%;
-  }
-}
-
-/* Адаптивность для мобильных */
-@media (max-width: 480px) {
-  .page-picker {
-    padding: 16px;
-    border-radius: 10px;
-    margin: 8px;
-  }
-  
-  .page-picker h1 {
-    font-size: 1.5rem;
-    margin-bottom: 20px;
-  }
-  
-  .page-tab {
-    padding: 10px 16px;
-    font-size: 0.9rem;
-  }
-  
-  .form-container {
-    padding: 16px;
-  }
-  
-  .form-control, .form-select {
-    padding: 10px 14px;
-    font-size: 0.9rem;
-  }
-  
-  .button-full {
-    padding: 12px 16px;
-    font-size: 0.95rem;
-  }
-  
-  .season-option {
-    padding: 8px 12px;
-  }
-}
-
-/* Дополнительные улучшения */
-.form-row {
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-  gap: 16px;
-  margin-bottom: 20px;
-}
-
-.feature-badge {
-  display: inline-block;
-  background: linear-gradient(135deg, #e74c3c, #c0392b);
-  color: white;
-  padding: 4px 12px;
-  border-radius: 20px;
-  font-size: 0.8rem;
-  font-weight: 600;
-  margin-left: 8px;
-  vertical-align: middle;
-}
-
-.loading-spinner {
-  display: none;
-  width: 20px;
-  height: 20px;
-  border: 2px solid #ffffff;
-  border-top: 2px solid transparent;
-  border-radius: 50%;
-  animation: spin 1s linear infinite;
-  margin: 0 auto;
-}
-
-@keyframes spin {
-  0% { transform: rotate(0deg); }
-  100% { transform: rotate(360deg); }
-}
-
-.button-full.loading .button-text {
-  visibility: hidden;
-}
-
-.button-full.loading .loading-spinner {
-  display: block;
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
-}
-</style>
-
-<div class="container mt-4">
-  <div class="page-picker mx-auto" style="max-width:900px;">
-    <h1>🚗 Подобрать шины и диски</h1>
-
-    <div class="page-tabs" role="tablist">
-      <div class="page-tab active" data-tab="tires">🎯 Подобрать шины</div>
-      <div class="page-tab" data-tab="disks">⚙️ Подобрать диски</div>
+            <p class="mb-3" style="font-size: 1.05rem; line-height: 1.7; text-align: justify;">
+              Rimeks — это современная онлайн-платформа, созданная для тех, кто ценит качество, удобство и точность
+              выбора автотоваров. Проект объединяет каталоги шин, дисков и аккумуляторов, чтобы каждый водитель мог
+              быстро подобрать подходящие комплектующие для своего автомобиля.
+            </p>
+            <p class="mb-3" style="font-size: 1.05rem; line-height: 1.7; text-align: justify;">
+              Мы стремимся сделать процесс поиска максимально простым: фильтры подбирают товары по ключевым параметрам,
+              интеллектуальный поиск помогает находить нужное по артикулу, бренду или модели, а аккуратный дизайн
+              интерфейса создаёт ощущение лёгкости.
+            </p>
+            <p class="mb-0" style="font-size: 1.05rem; line-height: 1.7; text-align: justify;">
+              Проект разработан как учебный, но его архитектура и функциональность приближены к реальным коммерческим
+              системам. Он может стать основой для будущего интернет-магазина или корпоративного каталога автотоваров.
+            </p>
+        
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div id="tires-form" class="form-container active">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Ширина (A) <span class="feature-badge">мм</span></label>
-          <input class="form-control" type="number" placeholder="205" min="145" max="355">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Высота (H) <span class="feature-badge">%</span></label>
-          <input class="form-control" type="number" placeholder="55" min="25" max="80">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Диаметр (R) <span class="feature-badge">дюймы</span></label>
-          <input class="form-control" type="number" placeholder="16" min="13" max="22">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Производитель</label>
-        <select class="form-select">
-          <option value="">Выберите производителя</option>
-          <option>Michelin</option>
-          <option>Bridgestone</option>
-          <option>Continental</option>
-          <option>Pirelli</option>
-          <option>Goodyear</option>
-          <option>Nokian</option>
-        </select>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Сезон</label>
-        <div class="season-selector">
-          <div class="season-option">
-            <input type="radio" name="season" id="winter">
-            <label for="winter">❄️ Зимняя</label>
-          </div>
-          <div class="season-option">
-            <input type="radio" name="season" id="summer">
-            <label for="summer">☀️ Летняя</label>
-          </div>
-          <div class="season-option">
-            <input type="radio" name="season" id="allseason">
-            <label for="allseason">🌦️ Всесезонная</label>
+    <div class="row g-4 mb-5">
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h2 class="h5 mb-3"><i class="bi bi-speedometer2 me-2 text-primary"></i>Шины</h2>
+            <p class="mb-3" style="text-align: justify;">
+              Летние, зимние и всесезонные шины с удобной фильтрацией по размеру, сезону, индексу нагрузки и скорости.
+            </p>
+            <a href="#" class="stretched-link text-decoration-none">Перейти к каталогу</a>
           </div>
         </div>
       </div>
 
-      <div class="form-group">
-        <label class="form-label">Шипы</label>
-        <select class="form-select">
-          <option value="">Выберите тип</option>
-          <option value="with">✅ С шипами</option>
-          <option value="without">❌ Без шипов</option>
-          <option value="any">🔹 Не важно</option>
-        </select>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h2 class="h5 mb-3"><i class="bi bi-circle-square me-2 text-primary"></i>Диски</h2>
+            <p class="mb-3" style="text-align: justify;">
+              Литые, кованые и штампованные диски. Подбор по диаметру, разболтовке, вылету, PCD и другим параметрам.
+            </p>
+            <a href="#" class="stretched-link text-decoration-none">Перейти к каталогу</a>
+          </div>
+        </div>
       </div>
 
-      <button class="button-full" id="find-tires">
-        <span class="button-text">🔍 Найти шины</span>
-        <div class="loading-spinner"></div>
-      </button>
+      <div class="col-md-4">
+        <div class="card h-100 border-0 shadow-sm">
+          <div class="card-body">
+            <h2 class="h5 mb-3"><i class="bi bi-battery-charging me-2 text-primary"></i>Аккумуляторы</h2>
+            <p class="mb-3" style="text-align: justify;">
+              Автомобильные аккумуляторы с фильтрацией по ёмкости, полярности, пусковому току и габаритам.
+            </p>
+            <a href="#" class="stretched-link text-decoration-none">Перейти к каталогу</a>
+          </div>
+        </div>
+      </div>
     </div>
 
-    <div id="disks-form" class="form-container">
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Ширина диска <span class="feature-badge">дюймы</span></label>
-          <input class="form-control" type="number" placeholder="7.5" step="0.5" min="4" max="12">
+    <section class="pb-2">
+      <h2 class="h4 text-center mb-4">Почему удобно работать с Rimeks</h2>
+      <div class="row g-4">
+        <div class="col-md-4">
+          <div class="d-flex">
+            <div class="me-3 fs-3 text-primary">
+              <i class="bi bi-funnel"></i>
+            </div>
+            <div>
+              <h3 class="h6 mb-1">Умные фильтры</h3>
+              <p class="small mb-0" style="text-align: justify;">
+                Фильтрация по ключевым параметрам помогает быстро сузить список подходящих товаров.
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Диаметр (R) <span class="feature-badge">дюймы</span></label>
-          <input class="form-control" type="number" placeholder="16" min="13" max="22">
+
+        <div class="col-md-4">
+          <div class="d-flex">
+            <div class="me-3 fs-3 text-primary">
+              <i class="bi bi-search"></i>
+            </div>
+            <div>
+              <h3 class="h6 mb-1">Поиск по артикулу и модели</h3>
+              <p class="small mb-0" style="text-align: justify;">
+                Можно искать по артикулу, бренду, модели и другим характеристикам товара.
+              </p>
+            </div>
+          </div>
         </div>
-        <div class="form-group">
-          <label class="form-label">Вылет (ET) <span class="feature-badge">мм</span></label>
-          <input class="form-control" type="number" placeholder="35" min="-50" max="100">
+
+        <div class="col-md-4">
+          <div class="d-flex">
+            <div class="me-3 fs-3 text-primary">
+              <i class="bi bi-shield-check"></i>
+            </div>
+            <div>
+              <h3 class="h6 mb-1">Архитектура как у реального магазина</h3>
+              <p class="small mb-0" style="text-align: justify;">
+                Структура проекта приближена к коммерческим решениям и может быть основой для реального сервиса.
+              </p>
+            </div>
+          </div>
         </div>
       </div>
+    </section>
 
-      <div class="form-row">
-        <div class="form-group">
-          <label class="form-label">Количество болтов</label>
-          <input class="form-control" type="number" placeholder="5" min="3" max="8">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Межболтовое расстояние</label>
-          <input class="form-control" type="text" placeholder="5x114.3">
-        </div>
-        <div class="form-group">
-          <label class="form-label">Центральное отверстие</label>
-          <input class="form-control" type="number" placeholder="67.1" step="0.1">
-        </div>
-      </div>
-
-      <div class="form-group">
-        <label class="form-label">Тип диска</label>
-        <select class="form-select">
-          <option value="">Выберите тип диска</option>
-          <option>⚪ Литые</option>
-          <option>🔵 Штампованные</option>
-        </select>
-      </div>
-
-      <button class="button-full" id="find-disks">
-        <span class="button-text">🔍 Найти диски</span>
-        <div class="loading-spinner"></div>
-      </button>
-    </div>
-
-    <div class="text-center mt-4">
-      <a class="help-link" href="#">
-        📚 Как определить параметры?
-      </a>
-    </div>
   </div>
 </div>
-
-<script>
-document.addEventListener('DOMContentLoaded', function() {
-  const tabs = document.querySelectorAll('.page-tab');
-  const forms = {
-    'tires': document.getElementById('tires-form'),
-    'disks': document.getElementById('disks-form')
-  };
-
-  // Переключение вкладок
-  tabs.forEach(tab => {
-    tab.addEventListener('click', function() {
-      tabs.forEach(t => t.classList.remove('active'));
-      this.classList.add('active');
-
-      const id = this.getAttribute('data-tab');
-      Object.keys(forms).forEach(k => forms[k].classList.remove('active'));
-      forms[id].classList.add('active');
-    });
-  });
-
-  // Анимация кнопок
-  const buttons = document.querySelectorAll('.button-full');
-  buttons.forEach(button => {
-    button.addEventListener('click', function() {
-      this.classList.add('loading');
-      setTimeout(() => {
-        this.classList.remove('loading');
-      }, 2000);
-    });
-  });
-
-  // Валидация числовых полей
-  const numberInputs = document.querySelectorAll('input[type="number"]');
-  numberInputs.forEach(input => {
-    input.addEventListener('input', function() {
-      const min = parseInt(this.getAttribute('min'));
-      const max = parseInt(this.getAttribute('max'));
-      const value = parseInt(this.value);
-
-      if (this.value && (value < min || value > max)) {
-        this.style.borderColor = '#e74c3c';
-        this.style.boxShadow = '0 0 0 3px rgba(231, 76, 60, 0.1)';
-      } else {
-        this.style.borderColor = '#e2e8f0';
-        this.style.boxShadow = 'none';
-      }
-    });
-  });
-
-  // Плавный скролл для help link
-  document.querySelector('.help-link').addEventListener('click', function(e) {
-    e.preventDefault();
-    alert('Здесь будет информация о том, как определить параметры шин и дисков');
-  });
-});
-</script>
-
-<p>{{ homepage.title }}</p>
-<p>{{ homepage.carrot }}</p>
 {% endblock %}

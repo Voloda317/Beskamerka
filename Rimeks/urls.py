@@ -28,6 +28,7 @@ urlpatterns = [
     path('akb/', include('akb.urls')),
     path('sale/', include('sale.urls')),
     path('services/', include('services.urls')),
+    path('shop/', include('shop.urls')),
 ]
 
 

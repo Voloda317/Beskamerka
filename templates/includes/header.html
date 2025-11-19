@@ -4,14 +4,12 @@
   <div class="container">
     <div class="d-flex flex-wrap justify-content-between align-items-center">
 
-      <!-- ЛОГОТИП -->
       <div class="header_logo mb-2 mb-md-0">
         <a href="/">
           <img src="{% static 'img/logo.png' %}" class="img-fluid" style="max-height: 50px;" alt="Логотип">
         </a>
       </div>
 
-      <!-- МЕНЮ -->
       <nav class="d-none d-md-block">
         <ul class="nav align-items-center fw-medium">
 
@@ -20,7 +18,6 @@
           <li class="nav-item"><a class="nav-link" href="{% url 'akb:akb' %}">АКБ</a></li>
           <li class="nav-item"><a class="nav-link" href="{% url 'sale:sale' %}">Акции</a></li>
 
-          <!-- ВЫПАДАЮЩЕЕ МЕНЮ "УСЛУГИ" -->
           <li class="nav-item dropdown position-relative">
             <a class="nav-link dropdown-toggle"
                href="{% url 'services:services' %}"
@@ -38,18 +35,16 @@
               <li class="mb-2"><a class="btn btn-outline-primary service-btn" href="{% url 'services:balancing' %}">Балансировка колёс</a></li>
               <li class="mb-2"><a class="btn btn-outline-primary service-btn" href="{% url 'services:pravka' %}">Правка дисков</a></li>
               <li class="mb-2"><a class="btn btn-outline-primary service-btn" href="{% url 'services:remont'%}">Ремонт резины</a></li>
-              <li class="mb-2"><a class="btn btn-outline-primary service-btn" href="#">Сезонное хранение</a></li>
+              <li class="mb-2"><a class="btn btn-outline-primary service-btn" href="{% url 'services:keeping_tires' %}">Сезонное хранение</a></li>
               <li class="mb-2"><a class="btn btn-outline-primary service-btn" href="#">Прайс на услуги</a></li>
             </ul>
           </li>
 
-          <li class="nav-item"><a class="nav-link" href="#">Магазин</a></li>
+          <li class="nav-item"><a class="nav-link" href="{% url 'shop:shop' %}">Магазин</a></li>
           <li class="nav-item"><a class="nav-link" href="#">Контакты</a></li>
         </ul>
       </nav>
 
-      <!-- ПОИСК -->
-<!-- ПОИСК -->
 <form class="d-flex my-2 my-lg-0 me-lg-2"
       role="search"
       action="{% url 'homepage:search' %}"
@@ -66,7 +61,6 @@
 </form>
 
 
-      <!-- КНОПКИ СПРАВА -->
       <div class="d-flex align-items-center">
         <a href="#" class="btn btn-outline-secondary me-2 d-none d-md-block">
           <i class="bi bi-person"></i> Войти
@@ -84,7 +78,6 @@
   </div>
 </header>
 
-<!-- ✅ СТИЛИ -->
 <style>
 /* убираем стрелку у "Услуги" */
 .nav-link.dropdown-toggle::after {

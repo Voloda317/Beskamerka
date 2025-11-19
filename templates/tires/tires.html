@@ -3,328 +3,354 @@
 {% block title %}Шины{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-  <div class="row">
-    <!-- ===== Сайдбар фильтров ===== -->
-    <div class="col-lg-3 mb-4">
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <form method="get" id="filter-form">
-            <!-- Размеры -->
-            <h6 class="fw-semibold mb-3 border-bottom pb-2">Размеры</h6>
-            <div class="row g-2 mb-4">
-              <div class="col-4">
-                <label class="form-label small mb-1">Ширина</label>
-                <select class="form-select form-select-sm" name="width">
-                  <option value="">Все</option>
-                  {% for width in filter.form.width.field.choices %}
-                  <option value="{{ width.0 }}" {% if width.0 in filter.form.width.value %}selected{% endif %}>{{ width.1 }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-              <div class="col-4">
-                <label class="form-label small mb-1">Высота</label>
-                <select class="form-select form-select-sm" name="height">
-                  <option value="">Все</option>
-                  {% for height in filter.form.height.field.choices %}
-                  <option value="{{ height.0 }}" {% if height.0 in filter.form.height.value %}selected{% endif %}>{{ height.1 }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-              <div class="col-4">
-                <label class="form-label small mb-1">Диаметр</label>
-                <select class="form-select form-select-sm" name="radius">
-                  <option value="">Все</option>
-                  {% for radius in filter.form.radius.field.choices %}
-                  <option value="{{ radius.0 }}" {% if radius.0 in filter.form.radius.value %}selected{% endif %}>{{ radius.1 }}</option>
-                  {% endfor %}
-                </select>
-              </div>
-            </div>
+<div class="bg-light py-4">
+  <div class="container">
+    <div class="row">
 
-            <!-- Сезон -->
-            <h6 class="fw-semibold mb-3 border-bottom pb-2">Сезон</h6>
-            <div class="mb-4">
-              {% for choice in filter.form.season.field.choices %}
-              <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="season" value="{{ choice.0 }}" id="season_{{ forloop.counter }}"
-                  {% if choice.0 in filter.form.season.value %}checked{% endif %}>
-                <label class="form-check-label" for="season_{{ forloop.counter }}">{{ choice.1 }}</label>
-              </div>
-              {% endfor %}
-            </div>
+      <!-- ===== Сайдбар фильтров ===== -->
+      <div class="col-lg-3 mb-4">
+        <div class="card shadow-sm border-0 filter-card">
+          <div class="card-body">
 
-            <!-- Шипы -->
-            <h6 class="fw-semibold mb-3 border-bottom pb-2">Шипы</h6>
-            <div class="mb-4">
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="spikes" value="yes" id="spikes_yes"
-                       {% if filter.form.spikes.value == "yes" %}checked{% endif %}>
-                <label class="form-check-label" for="spikes_yes">Да</label>
-              </div>
-              <div class="form-check">
-                <input class="form-check-input" type="radio" name="spikes" value="no" id="spikes_no"
-                       {% if filter.form.spikes.value == "no" %}checked{% endif %}>
-                <label class="form-check-label" for="spikes_no">Нет</label>
-              </div>
-            </div>
+            <form method="get" id="filter-form">
 
-            <!-- Производитель и Модель -->
-            <div class="accordion mb-3" id="accordionFilters">
-              <!-- Производитель -->
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingBrand">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseBrand" aria-expanded="false" aria-controls="collapseBrand">
-                    Производитель
-                  </button>
-                </h2>
-                <div id="collapseBrand" class="accordion-collapse collapse" aria-labelledby="headingBrand"
-                  data-bs-parent="#accordionFilters">
-                  <div class="accordion-body">
-                    <!-- Поле поиска для производителя -->
-                    <div class="input-group input-group-sm mb-2">
-                      <span class="input-group-text">
-                        <i class="bi bi-search"></i>
-                      </span>
-                      <input type="text" class="form-control" id="searchBrand" placeholder="Поиск">
-                    </div>
-                    
-                    <!-- Список брендов с прокруткой -->
-                    <div class="brand-list" style="max-height: 200px; overflow-y: auto;">
-                      {% for choice in filter.form.brand.field.choices %}
-                      <div class="form-check brand-item">
-                        <input class="form-check-input" type="checkbox" name="brand" value="{{ choice.0 }}" id="brand_{{ forloop.counter }}"
-                          {% if choice.0 in filter.form.brand.value %}checked{% endif %}>
-                        <label class="form-check-label small" for="brand_{{ forloop.counter }}">{{ choice.1 }}</label>
-                      </div>
+              <!-- Размеры -->
+              <div class="mb-4">
+                <div class="filter-section-title">Размеры</div>
+                <div class="filter-divider"></div>
+                <div class="row g-2">
+                  <div class="col-4">
+                    <label class="form-label small mb-1">Ширина</label>
+                    <select class="form-select form-select-sm" name="width">
+                      <option value="">Все</option>
+                      {% for width in filter.form.width.field.choices %}
+                      <option value="{{ width.0 }}" {% if width.0 in filter.form.width.value %}selected{% endif %}>{{ width.1 }}</option>
                       {% endfor %}
-                    </div>
+                    </select>
+                  </div>
+                  <div class="col-4">
+                    <label class="form-label small mb-1">Высота</label>
+                    <select class="form-select form-select-sm" name="height">
+                      <option value="">Все</option>
+                      {% for height in filter.form.height.field.choices %}
+                      <option value="{{ height.0 }}" {% if height.0 in filter.form.height.value %}selected{% endif %}>{{ height.1 }}</option>
+                      {% endfor %}
+                    </select>
+                  </div>
+                  <div class="col-4">
+                    <label class="form-label small mb-1">Диаметр</label>
+                    <select class="form-select form-select-sm" name="radius">
+                      <option value="">Все</option>
+                      {% for radius in filter.form.radius.field.choices %}
+                      <option value="{{ radius.0 }}" {% if radius.0 in filter.form.radius.value %}selected{% endif %}>{{ radius.1 }}</option>
+                      {% endfor %}
+                    </select>
                   </div>
                 </div>
               </div>
 
-              <!-- Модель -->
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingModel">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
-                    data-bs-target="#collapseModel" aria-expanded="false" aria-controls="collapseModel">
-                    Модель
-                  </button>
-                </h2>
-                <div id="collapseModel" class="accordion-collapse collapse" aria-labelledby="headingModel"
-                  data-bs-parent="#accordionFilters">
-                  <div class="accordion-body">
-                    <!-- Поле поиска для модели -->
-                    <div class="input-group input-group-sm mb-2">
-                      <span class="input-group-text">
-                        <i class="bi bi-search"></i>
-                      </span>
-                      <input type="text" class="form-control" id="searchModel" placeholder="Поиск">
-                    </div>
-                    
-                    <!-- Список моделей с прокруткой -->
-                    <div class="model-list" style="max-height: 200px; overflow-y: auto;">
-                      {% for choice in filter.form.model.field.choices %}
-                      <div class="form-check model-item">
-                        <input class="form-check-input" type="checkbox" name="model" value="{{ choice.0 }}" id="model_{{ forloop.counter }}"
-                          {% if choice.0 in filter.form.model.value %}checked{% endif %}>
-                        <label class="form-check-label small" for="model_{{ forloop.counter }}">{{ choice.1 }}</label>
+              <!-- Сезон -->
+              <div class="mb-4">
+                <div class="filter-section-title">Сезон</div>
+                <div class="filter-divider"></div>
+                {% for choice in filter.form.season.field.choices %}
+                <div class="form-check mb-1">
+                  <input class="form-check-input" type="checkbox" name="season" value="{{ choice.0 }}" id="season_{{ forloop.counter }}"
+                         {% if choice.0 in filter.form.season.value %}checked{% endif %}>
+                  <label class="form-check-label" for="season_{{ forloop.counter }}">{{ choice.1 }}</label>
+                </div>
+                {% endfor %}
+              </div>
+
+              <!-- Шипы -->
+              <div class="mb-4">
+                <div class="filter-section-title">Шипы</div>
+                <div class="filter-divider"></div>
+                <div class="form-check mb-1">
+                  <input class="form-check-input" type="radio" name="spikes" value="yes" id="spikes_yes"
+                         {% if filter.form.spikes.value == "yes" %}checked{% endif %}>
+                  <label class="form-check-label" for="spikes_yes">Да</label>
+                </div>
+                <div class="form-check mb-1">
+                  <input class="form-check-input" type="radio" name="spikes" value="no" id="spikes_no"
+                         {% if filter.form.spikes.value == "no" %}checked{% endif %}>
+                  <label class="form-check-label" for="spikes_no">Нет</label>
+                </div>
+              </div>
+
+              <!-- Производитель и Модель -->
+              <div class="mb-4">
+                <div class="accordion" id="accordionFilters">
+
+                  <!-- Производитель -->
+                  <div class="mb-2">
+                    <button class="btn filter-collapse-btn w-100 d-flex justify-content-between align-items-center"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseBrand"
+                            aria-expanded="false"
+                            aria-controls="collapseBrand">
+                      <span>Производитель</span>
+                      <i class="bi bi-chevron-down small"></i>
+                    </button>
+                    <div id="collapseBrand" class="collapse" data-bs-parent="#accordionFilters">
+                      <div class="filter-collapse-body">
+                        <div class="input-group input-group-sm mb-2">
+                          <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                          </span>
+                          <input type="text" class="form-control" id="searchBrand" placeholder="Поиск">
+                        </div>
+                        <div class="brand-list small" style="max-height: 200px; overflow-y: auto;">
+                          {% for choice in filter.form.brand.field.choices %}
+                          <div class="form-check brand-item mb-1">
+                            <input class="form-check-input" type="checkbox" name="brand" value="{{ choice.0 }}" id="brand_{{ forloop.counter }}"
+                                   {% if choice.0 in filter.form.brand.value %}checked{% endif %}>
+                            <label class="form-check-label" for="brand_{{ forloop.counter }}">{{ choice.1 }}</label>
+                          </div>
+                          {% endfor %}
+                        </div>
                       </div>
-                      {% endfor %}
                     </div>
                   </div>
+
+                  <!-- Модель -->
+                  <div>
+                    <button class="btn filter-collapse-btn w-100 d-flex justify-content-between align-items-center"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseModel"
+                            aria-expanded="false"
+                            aria-controls="collapseModel">
+                      <span>Модель</span>
+                      <i class="bi bi-chevron-down small"></i>
+                    </button>
+                    <div id="collapseModel" class="collapse" data-bs-parent="#accordionFilters">
+                      <div class="filter-collapse-body">
+                        <div class="input-group input-group-sm mb-2">
+                          <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                          </span>
+                          <input type="text" class="form-control" id="searchModel" placeholder="Поиск">
+                        </div>
+                        <div class="model-list small" style="max-height: 200px; overflow-y: auto;">
+                          {% for choice in filter.form.model.field.choices %}
+                          <div class="form-check model-item mb-1">
+                            <input class="form-check-input" type="checkbox" name="model" value="{{ choice.0 }}" id="model_{{ forloop.counter }}"
+                                   {% if choice.0 in filter.form.model.value %}checked{% endif %}>
+                            <label class="form-check-label" for="model_{{ forloop.counter }}">{{ choice.1 }}</label>
+                          </div>
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Кнопки -->
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Показать</button>
+                <a href="{% url 'tires:tires' %}" class="btn btn-outline-secondary">Сбросить</a>
+              </div>
+
+            </form>
+
+          </div>
+        </div>
+      </div>
+
+      <!-- ===== Карточки шин + пагинация ===== -->
+      <div class="col-lg-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="mb-0">Найдено шин: {{ page_obj.paginator.count }}</h5>
+        </div>
+
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+          {% for tire in tires %}
+          <div class="col d-flex align-items-stretch">
+            <div class="card h-100 shadow-sm d-flex flex-column tire-card" data-tire-id="{{ tire.id }}">
+              <div class="tire-card-clickable">
+                <img src="{{ tire.image_url }}" class="card-img-top tire-image" alt="{{ tire.name }}">
+                <div class="card-body d-flex flex-column">
+                  <h6 class="card-title"
+                      style="word-wrap: break-word; overflow-wrap: break-word; line-height: 1.3; min-height: 2.6em;">
+                    {{ tire.name }}
+                  </h6>
+                  <div class="small text-muted mb-2">
+                    <div><strong>Артикул:</strong> {{ tire.art }}</div>
+                    <div><strong>Бренд:</strong> {{ tire.manufacturer }}</div>
+                    <div><strong>Модель:</strong> {{ tire.model }}</div>
+                    <div><strong>Сезон:</strong> {{ tire.season }}</div>
+                    <div><strong>Шипы:</strong> {% if tire.spikes %}Да{% else %}Нет{% endif %}</div>
+                  </div>
+                  <div class="fw-bold text-primary mb-2">{{ tire.price }} ₽</div>
+                  <div class="small text-success mb-3">В наличии: {{ tire.quantity }} шт.</div>
+                </div>
+              </div>
+              <div class="card-footer bg-transparent border-top-0 mt-auto">
+                <div class="d-flex gap-2 align-items-center">
+                  <a href="#" class="btn btn-sm btn-primary flex-fill">В корзину</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary flex-fill">Наличие</a>
+                  <a href="#" class="btn btn-sm btn-outline-danger">
+                    <i class="bi bi-heart"></i>
+                  </a>
                 </div>
               </div>
             </div>
-
-            <!-- Кнопки -->
-            <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary">Показать</button>
-              <a href="{% url 'tires:tires' %}" class="btn btn-outline-secondary">Сбросить</a>
-            </div>
-          </form>
-        </div>
-      </div>
-    </div>
-
-    <!-- ===== Карточки шин ===== -->
-    <div class="col-lg-9">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5>Найдено шин: {{ page_obj.paginator.count }}</h5>
-      </div>
-
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-        {% for tire in tires %}
-        <div class="col d-flex align-items-stretch">
-          <div class="card h-100 shadow-sm d-flex flex-column tire-card" data-tire-id="{{ tire.id }}">
-            <div class="tire-card-clickable">
-              <img src="{{ tire.image_url }}" class="card-img-top" alt="{{ tire.name }}" style="object-fit: contain; height: 200px;">
-              <div class="card-body d-flex flex-column">
-                <!-- Исправлено: убрал text-truncate, добавил стили для переноса -->
-                <h6 class="card-title" style="word-wrap: break-word; overflow-wrap: break-word; line-height: 1.3; min-height: 2.6em;">{{ tire.name }}</h6>
-                <div class="small text-muted mb-2">
-                  <div><strong>Артикул:</strong> {{ tire.art }}</div>
-                  <div><strong>Бренд:</strong> {{ tire.manufacturer }}</div>
-                  <div><strong>Модель:</strong> {{ tire.model }}</div>
-                  <div><strong>Сезон:</strong> {{ tire.season }}</div>
-                  <div><strong>Шипы:</strong> {% if tire.spikes %}Да{% else %}Нет{% endif %}</div>
-                </div>
-                <div class="fw-bold text-primary mb-2">{{ tire.price }} ₽</div>
-                <div class="small text-success mb-3">В наличии: {{ tire.quantity }} шт.</div>
-              </div>
-            </div>
-            <div class="card-footer bg-transparent border-top-0 mt-auto">
-              <div class="d-flex gap-2 align-items-center">
-                <a href="#" class="btn btn-sm btn-primary flex-fill">В корзину</a>
-                <a href="#" class="btn btn-sm btn-outline-secondary flex-fill">Наличие</a>
-                <a href="#" class="btn btn-outline-danger btn-sm">
-                  <i class="bi bi-heart"></i> 
-                </a>
-              </div>
+          </div>
+          {% empty %}
+          <div class="col-12">
+            <div class="text-center py-5">
+              <h4 class="text-muted mt-3">Шины не найдены</h4>
+              <p class="text-muted">Попробуйте изменить параметры фильтра</p>
+              <a href="{% url 'tires:tires' %}" class="btn btn-primary">Сбросить фильтры</a>
             </div>
           </div>
+          {% endfor %}
         </div>
-        {% empty %}
-        <div class="col-12">
-          <div class="text-center py-5">
-            <h4 class="text-muted mt-3">Шины не найдены</h4>
-            <p class="text-muted">Попробуйте изменить параметры фильтра</p>
-            <a href="{% url 'tires:tires' %}" class="btn btn-primary">Сбросить фильтры</a>
-          </div>
-        </div>
-        {% endfor %}
+
+        <!-- ===== Пагинация ===== -->
+        {% if is_paginated %}
+        <nav aria-label="Страницы" class="d-flex justify-content-center mt-4">
+          <ul class="pagination mb-0">
+
+            {% if page_obj.has_previous %}
+            <li class="page-item">
+              <a class="page-link" href="{% url_replace page=1 %}">&laquo;</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="{% url_replace page=page_obj.previous_page_number %}">Назад</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
+            <li class="page-item disabled"><span class="page-link">Назад</span></li>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+            {% if num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
+            {% if num == page_obj.number %}
+            <li class="page-item active"><span class="page-link">{{ num }}</span></li>
+            {% else %}
+            <li class="page-item"><a class="page-link" href="{% url_replace page=num %}">{{ num }}</a></li>
+            {% endif %}
+            {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+            <li class="page-item">
+              <a class="page-link" href="{% url_replace page=page_obj.next_page_number %}">Вперёд</a>
+            </li>
+            <li class="page-item">
+              <a class="page-link" href="{% url_replace page=page_obj.paginator.num_pages %}">&raquo;</a>
+            </li>
+            {% else %}
+            <li class="page-item disabled"><span class="page-link">Вперёд</span></li>
+            <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
+            {% endif %}
+
+          </ul>
+        </nav>
+        {% endif %}
+        <!-- ===== /Пагинация ===== -->
+
       </div>
     </div>
   </div>
 </div>
 
-
- <!-- ===== Пагинация ===== -->
-      {% if is_paginated %}
-      <nav aria-label="Страницы" class="d-flex justify-content-center mt-4">
-        <ul class="pagination mb-0">
-
-          {% if page_obj.has_previous %}
-          <li class="page-item">
-            <a class="page-link" href="{% url_replace page=1 %}">&laquo;</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="{% url_replace page=page_obj.previous_page_number %}">Назад</a>
-          </li>
-          {% else %}
-          <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
-          <li class="page-item disabled"><span class="page-link">Назад</span></li>
-          {% endif %}
-
-          {% for num in page_obj.paginator.page_range %}
-          {% if num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
-          {% if num == page_obj.number %}
-          <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-          {% else %}
-          <li class="page-item"><a class="page-link" href="{% url_replace page=num %}">{{ num }}</a></li>
-          {% endif %}
-          {% endif %}
-          {% endfor %}
-
-          {% if page_obj.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="{% url_replace page=page_obj.next_page_number %}">Вперёд</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="{% url_replace page=page_obj.paginator.num_pages %}">&raquo;</a>
-          </li>
-          {% else %}
-          <li class="page-item disabled"><span class="page-link">Вперёд</span></li>
-          <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
-          {% endif %}
-
-        </ul>
-      </nav>
-      {% endif %}
-      <!-- ===== /Пагинация ===== -->
-
 <script>
-// Функция для поиска в списках аккордеона
 function setupAccordionSearch(inputId, itemClass) {
     const searchInput = document.getElementById(inputId);
     const items = document.querySelectorAll('.' + itemClass);
-    
+
+    if (!searchInput) return;
+
     searchInput.addEventListener('input', function() {
         const searchTerm = this.value.toLowerCase();
-        
+
         items.forEach(item => {
             const label = item.querySelector('.form-check-label');
             const text = label.textContent.toLowerCase();
-            
-            if (text.includes(searchTerm)) {
-                item.style.display = 'block';
-            } else {
-                item.style.display = 'none';
-            }
+            item.style.display = text.includes(searchTerm) ? 'block' : 'none';
         });
     });
 }
 
-// Обработчик клика по карточке товара
 document.addEventListener('DOMContentLoaded', function() {
     setupAccordionSearch('searchBrand', 'brand-item');
     setupAccordionSearch('searchModel', 'model-item');
-    
-    // Добавляем обработчики клика для карточек товаров
+
     const tireCards = document.querySelectorAll('.tire-card');
-    
+
     tireCards.forEach(card => {
         const clickableArea = card.querySelector('.tire-card-clickable');
-        
+        if (!clickableArea) return;
+
         clickableArea.addEventListener('click', function(e) {
-            // Предотвращаем переход при клике на кнопки в футере
             if (!e.target.closest('.card-footer')) {
                 const tireId = card.getAttribute('data-tire-id');
-                // Перенаправляем на страницу детальной информации о шине
                 window.location.href = `{% url 'tires:tire_detail' 0 %}`.replace('0', tireId);
             }
         });
-        
-        // Добавляем курсор указателя для кликабельной области
+
         clickableArea.style.cursor = 'pointer';
     });
 });
 </script>
 
 <style>
-.brand-list::-webkit-scrollbar,
-.model-list::-webkit-scrollbar {
-    width: 4px;
-}
-.brand-list::-webkit-scrollbar-track,
-.model-list::-webkit-scrollbar-track {
-    background: #f1f1f1;
-}
-.brand-list::-webkit-scrollbar-thumb,
-.model-list::-webkit-scrollbar-thumb {
-    background: #c1c1c1;
-    border-radius: 2px;
-}
-.form-check {
-    margin-bottom: 0.3rem;
-}
-.form-check-label {
-    font-size: 0.85rem;
-}
+  .filter-card {
+      border-radius: 12px;
+  }
 
-/* Стили для кликабельной карточки */
-.tire-card {
-    transition: transform 0.2s ease, box-shadow 0.2s ease;
-}
+  .filter-section-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+  }
 
-.tire-card:hover {
-    transform: translateY(-2px);
-    box-shadow: 0 4px 15px rgba(0,0,0,0.1) !important;
-}
+  .filter-divider {
+      border-top: 1px solid #e3e6ea;
+      margin: 0.35rem 0 0.9rem;
+  }
 
-.tire-card-clickable:hover {
-    background-color: rgba(0,0,0,0.02);
-}
+  .filter-collapse-btn {
+      background-color: #f8f9fa;
+      border: 1px solid #e3e6ea;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      padding: 0.6rem 0.9rem;
+  }
+
+  .filter-collapse-btn:focus {
+      box-shadow: none;
+  }
+
+  .filter-collapse-body {
+      border: 1px solid #e3e6ea;
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      padding: 0.6rem 0.75rem 0.75rem;
+      background-color: #fff;
+  }
+
+  .tire-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .tire-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .tire-card-clickable:hover {
+      background-color: rgba(0,0,0,0.02);
+  }
+
+  .tire-image {
+      object-fit: contain;
+      height: 200px;
+  }
 </style>
 {% endblock %}

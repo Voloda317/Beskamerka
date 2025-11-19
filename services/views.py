@@ -14,3 +14,6 @@ def pravka(request):
 
 def remont(request):
     return render(request, 'services/remont_tires.html')
+
+def keeping_tires(request):
+    return render(request, 'services/keeping_tires.html')

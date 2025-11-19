@@ -1,251 +1,272 @@
 {% extends "base.html" %}
-{% load qs%}
+{% load qs %}
 {% block title %}Аккумуляторы{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-  <div class="row">
-    <!-- SIDEBAR: фильтры -->
-    <div class="col-lg-3 mb-4">
-      <div class="card shadow-sm">
-        <div class="card-body">
-          <form method="get" id="filter-form">
-            <h6 class="fw-semibold mb-3 border-bottom pb-2">Ёмкость (Ah)</h6>
-            <div class="row g-2 mb-3">
-              <div class="col-6">
-                <label class="form-label small mb-1">От</label>
-                {{ filter.form.min_container }}
-              </div>
-              <div class="col-6">
-                <label class="form-label small mb-1">До</label>
-                {{ filter.form.max_container }}
-              </div>
-            </div>
+<div class="bg-light py-4">
+  <div class="container">
+    <div class="row">
 
-            <h6 class="fw-semibold mb-3 border-bottom pb-2">Пусковой ток (A)</h6>
-            <div class="row g-2 mb-3">
-              <div class="col-6">
-                <label class="form-label small mb-1">От</label>
-                {{ filter.form.min_start_current }}
-              </div>
-              <div class="col-6">
-                <label class="form-label small mb-1">До</label>
-                {{ filter.form.max_start_current }}
-              </div>
-            </div>
+      <!-- ===== Сайдбар фильтров ===== -->
+      <div class="col-lg-3 mb-4">
+        <div class="card shadow-sm border-0 filter-card">
+          <div class="card-body">
+            <form method="get" id="filter-form">
 
-            <h6 class="fw-semibold mb-3 border-bottom pb-2">Полярность</h6>
-            <div class="mb-3">
-              {% for choice in filter.form.polarity.field.choices %}
-                {% with sel=filter.form.polarity.value %}
-                <div class="form-check">
-                  <input class="form-check-input" type="checkbox" name="polarity" value="{{ choice.0 }}" id="pol_{{ forloop.counter }}"
-                    {% if sel and choice.0 in sel %}checked{% endif %}>
-                  <label class="form-check-label" for="pol_{{ forloop.counter }}">{{ choice.1 }}</label>
-                </div>
-                {% endwith %}
-              {% endfor %}
-            </div>
-
-            <div class="accordion mb-3" id="accordionFilters">
-              <!-- Производитель -->
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingBrand">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseBrand" aria-expanded="false">
-                    Производитель
-                  </button>
-                </h2>
-                <div id="collapseBrand" class="accordion-collapse collapse">
-                  <div class="accordion-body">
-                    <input type="text" class="form-control form-control-sm mb-2" id="searchBrand" placeholder="Поиск">
-                    <div class="brand-list" style="max-height: 220px; overflow-y: auto;">
-                      {% for choice in filter.form.brand.field.choices %}
-                        {% with sel=filter.form.brand.value %}
-                        <div class="form-check brand-item">
-                          <input class="form-check-input" type="checkbox" name="brand" value="{{ choice.0 }}" id="brand_{{ forloop.counter }}"
-                            {% if sel and choice.0 in sel %}checked{% endif %}>
-                          <label class="form-check-label small" for="brand_{{ forloop.counter }}">{{ choice.1 }}</label>
-                        </div>
-                        {% endwith %}
-                      {% endfor %}
-                    </div>
+              <!-- Ёмкость -->
+              <div class="mb-4">
+                <div class="filter-section-title">Ёмкость (Ah)</div>
+                <div class="filter-divider"></div>
+                <div class="row g-2">
+                  <div class="col-6">
+                    <label class="form-label small mb-1">От</label>
+                    {{ filter.form.min_container }}
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label small mb-1">До</label>
+                    {{ filter.form.max_container }}
                   </div>
                 </div>
               </div>
 
-              <!-- Модель -->
-              <div class="accordion-item">
-                <h2 class="accordion-header" id="headingModel">
-                  <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseModel">
-                    Модель
-                  </button>
-                </h2>
-                <div id="collapseModel" class="accordion-collapse collapse">
-                  <div class="accordion-body">
-                    <input type="text" class="form-control form-control-sm mb-2" id="searchModel" placeholder="Поиск">
-                    <div class="model-list" style="max-height: 220px; overflow-y: auto;">
-                      {% for choice in filter.form.model.field.choices %}
-                        {% with sel=filter.form.model.value %}
-                        <div class="form-check model-item">
-                          <input class="form-check-input" type="checkbox" name="model" value="{{ choice.0 }}" id="model_{{ forloop.counter }}"
-                            {% if sel and choice.0 in sel %}checked{% endif %}>
-                          <label class="form-check-label small" for="model_{{ forloop.counter }}">{{ choice.1 }}</label>
-                        </div>
-                        {% endwith %}
-                      {% endfor %}
-                    </div>
+              <!-- Пусковой ток -->
+              <div class="mb-4">
+                <div class="filter-section-title">Пусковой ток (A)</div>
+                <div class="filter-divider"></div>
+                <div class="row g-2">
+                  <div class="col-6">
+                    <label class="form-label small mb-1">От</label>
+                    {{ filter.form.min_start_current }}
+                  </div>
+                  <div class="col-6">
+                    <label class="form-label small mb-1">До</label>
+                    {{ filter.form.max_start_current }}
                   </div>
                 </div>
               </div>
-            </div>
 
-            <div class="d-grid gap-2">
-              <button type="submit" class="btn btn-primary">Показать</button>
-              <a href="{% url 'akb:akb' %}" class="btn btn-outline-secondary">Сбросить</a>
-            </div>
-          </form>
+              <!-- Полярность -->
+              <div class="mb-4">
+                <div class="filter-section-title">Полярность</div>
+                <div class="filter-divider"></div>
+                {% for choice in filter.form.polarity.field.choices %}
+                  {% with sel=filter.form.polarity.value %}
+                  <div class="form-check mb-1">
+                    <input class="form-check-input"
+                           type="checkbox"
+                           name="polarity"
+                           value="{{ choice.0 }}"
+                           id="pol_{{ forloop.counter }}"
+                           {% if sel and choice.0 in sel %}checked{% endif %}>
+                    <label class="form-check-label" for="pol_{{ forloop.counter }}">{{ choice.1 }}</label>
+                  </div>
+                  {% endwith %}
+                {% endfor %}
+              </div>
+
+              <!-- Производитель и модель -->
+              <div class="mb-4">
+                <div class="accordion" id="accordionFilters">
+
+                  <!-- Производитель -->
+                  <div class="mb-2">
+                    <button class="btn filter-collapse-btn w-100 d-flex justify-content-between align-items-center"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseBrand"
+                            aria-expanded="false"
+                            aria-controls="collapseBrand">
+                      <span>Производитель</span>
+                      <i class="bi bi-chevron-down small"></i>
+                    </button>
+                    <div id="collapseBrand" class="collapse" data-bs-parent="#accordionFilters">
+                      <div class="filter-collapse-body">
+                        <div class="input-group input-group-sm mb-2">
+                          <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                          </span>
+                          <input type="text"
+                                 class="form-control"
+                                 id="searchBrand"
+                                 placeholder="Поиск">
+                        </div>
+                        <div class="brand-list small" style="max-height: 220px; overflow-y: auto;">
+                          {% for choice in filter.form.brand.field.choices %}
+                            {% with sel=filter.form.brand.value %}
+                            <div class="form-check brand-item mb-1">
+                              <input class="form-check-input"
+                                     type="checkbox"
+                                     name="brand"
+                                     value="{{ choice.0 }}"
+                                     id="brand_{{ forloop.counter }}"
+                                     {% if sel and choice.0 in sel %}checked{% endif %}>
+                              <label class="form-check-label" for="brand_{{ forloop.counter }}">{{ choice.1 }}</label>
+                            </div>
+                            {% endwith %}
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <!-- Модель -->
+                  <div>
+                    <button class="btn filter-collapse-btn w-100 d-flex justify-content-between align-items-center"
+                            type="button"
+                            data-bs-toggle="collapse"
+                            data-bs-target="#collapseModel"
+                            aria-expanded="false"
+                            aria-controls="collapseModel">
+                      <span>Модель</span>
+                      <i class="bi bi-chevron-down small"></i>
+                    </button>
+                    <div id="collapseModel" class="collapse" data-bs-parent="#accordionFilters">
+                      <div class="filter-collapse-body">
+                        <div class="input-group input-group-sm mb-2">
+                          <span class="input-group-text">
+                            <i class="bi bi-search"></i>
+                          </span>
+                          <input type="text"
+                                 class="form-control"
+                                 id="searchModel"
+                                 placeholder="Поиск">
+                        </div>
+                        <div class="model-list small" style="max-height: 220px; overflow-y: auto;">
+                          {% for choice in filter.form.model.field.choices %}
+                            {% with sel=filter.form.model.value %}
+                            <div class="form-check model-item mb-1">
+                              <input class="form-check-input"
+                                     type="checkbox"
+                                     name="model"
+                                     value="{{ choice.0 }}"
+                                     id="model_{{ forloop.counter }}"
+                                     {% if sel and choice.0 in sel %}checked{% endif %}>
+                              <label class="form-check-label" for="model_{{ forloop.counter }}">{{ choice.1 }}</label>
+                            </div>
+                            {% endwith %}
+                          {% endfor %}
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- Кнопки -->
+              <div class="d-grid gap-2">
+                <button type="submit" class="btn btn-primary">Показать</button>
+                <a href="{% url 'akb:akb' %}" class="btn btn-outline-secondary">Сбросить</a>
+              </div>
+
+            </form>
+          </div>
         </div>
       </div>
-    </div>
 
-    <!-- СПИСОК АКБ -->
-    <div class="col-lg-9">
-      <div class="d-flex justify-content-between align-items-center mb-3">
-        <h5>Найдено аккумуляторов: {{ filter.qs.count }}</h5>
-        {% if request.GET %}
+      <!-- ===== Список АКБ ===== -->
+      <div class="col-lg-9">
+        <div class="d-flex justify-content-between align-items-center mb-3">
+          <h5 class="mb-0">Найдено аккумуляторов: {{ filter.qs.count }}</h5>
+          {% if request.GET %}
           <a href="{% url 'akb:akb' %}" class="btn btn-sm btn-outline-secondary">Сбросить фильтры</a>
-        {% endif %}
-      </div>
+          {% endif %}
+        </div>
 
-      <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
-        {% for akb in akbs %}
-        <div class="col d-flex align-items-stretch">
-          <div class="card h-100 shadow-sm d-flex flex-column">
+        <div class="row row-cols-1 row-cols-sm-2 row-cols-md-3 g-4">
+          {% for akb in akbs %}
+          <div class="col d-flex align-items-stretch">
+            <div class="card h-100 shadow-sm d-flex flex-column akb-card">
 
-            {# ✅ Исправленный вывод изображения #}
-            {% with raw=akb.image_url|default_if_none:'' %}
+              {% with raw=akb.image_url|default_if_none:'' %}
               <img
                 src="{% if '://' in raw %}{{ raw }}{% else %}https://{% if raw|slice:':1' == '/' %}{{ raw|slice:'1:' }}{% else %}{{ raw }}{% endif %}{% endif %}"
-                class="card-img-top"
+                class="card-img-top akb-image"
                 alt="{{ akb.name }}"
-                style="object-fit: contain; height: 180px;"
-                loading="lazy"
-              >
-            {% endwith %}
+                loading="lazy">
+              {% endwith %}
 
-            <div class="card-body d-flex flex-column">
-              <h6 class="card-title" style="line-height: 1.2;">{{ akb.name }}</h6>
-              <div class="small text-muted mb-2">
-                <div><strong>Артикул:</strong> {{ akb.art }}</div>
-                <div><strong>Бренд:</strong> {{ akb.brand }}</div>
-                <div><strong>Модель:</strong> {{ akb.model }}</div>
-                <div><strong>Ёмкость:</strong> {{ akb.container }} Ah</div>
-                <div><strong>Пусковой ток:</strong> {{ akb.start_current }} A</div>
-                <div><strong>Полярность:</strong> {{ akb.polarity }}</div>
-                <div><strong>Габариты:</strong> {{ akb.length }}×{{ akb.width }}×{{ akb.height }} мм</div>
-              </div>
+              <div class="card-body d-flex flex-column">
+                <h6 class="card-title" style="line-height: 1.2;">{{ akb.name }}</h6>
+                <div class="small text-muted mb-2">
+                  <div><strong>Артикул:</strong> {{ akb.art }}</div>
+                  <div><strong>Бренд:</strong> {{ akb.brand }}</div>
+                  <div><strong>Модель:</strong> {{ akb.model }}</div>
+                  <div><strong>Ёмкость:</strong> {{ akb.container }} Ah</div>
+                  <div><strong>Пусковой ток:</strong> {{ akb.start_current }} A</div>
+                  <div><strong>Полярность:</strong> {{ akb.polarity }}</div>
+                  <div><strong>Габариты:</strong> {{ akb.length }}×{{ akb.width }}×{{ akb.height }} мм</div>
+                </div>
 
-              <div class="fw-bold text-primary mb-2">{{ akb.price }} ₽</div>
-              <div class="small text-success mb-3">В наличии: {{ akb.count }} шт.</div>
+                <div class="fw-bold text-primary mb-2">{{ akb.price }} ₽</div>
+                <div class="small text-success mb-3">В наличии: {{ akb.count }} шт.</div>
 
-              <div class="mt-auto d-flex gap-2">
-                <a href="#" class="btn btn-sm btn-primary flex-fill">В корзину</a>
-                <a href="#" class="btn btn-sm btn-outline-secondary flex-fill">Наличие</a>
-                <a href="#" class="btn btn-outline-danger btn-sm"><i class="bi bi-heart"></i></a>
+                <div class="mt-auto d-flex gap-2">
+                  <a href="#" class="btn btn-sm btn-primary flex-fill">В корзину</a>
+                  <a href="#" class="btn btn-sm btn-outline-secondary flex-fill">Наличие</a>
+                  <a href="#" class="btn btn-sm btn-outline-danger">
+                    <i class="bi bi-heart"></i>
+                  </a>
+                </div>
               </div>
             </div>
           </div>
+          {% empty %}
+          <div class="col-12 text-center py-5">
+            <h4 class="text-muted mt-3">Аккумуляторы не найдены</h4>
+            <p class="text-muted">Попробуйте изменить параметры фильтра</p>
+            <a href="{% url 'akb:akb' %}" class="btn btn-primary">Сбросить фильтры</a>
+          </div>
+          {% endfor %}
         </div>
-        {% empty %}
-        <div class="col-12 text-center py-5">
-          <h4 class="text-muted mt-3">Аккумуляторы не найдены</h4>
-          <p class="text-muted">Попробуйте изменить параметры фильтра</p>
-          <a href="{% url 'akb:akb' %}" class="btn btn-primary">Сбросить фильтры</a>
+
+        {% if akbs.has_other_pages %}
+        <div class="mt-4">
+          <nav>
+            <ul class="pagination justify-content-center mb-0">
+              {% if akbs.has_previous %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ akbs.previous_page_number }}">&laquo;</a>
+              </li>
+              {% endif %}
+
+              {% for num in akbs.paginator.page_range %}
+                {% if num >= akbs.number|add:-2 and num <= akbs.number|add:2 %}
+                  <li class="page-item {% if akbs.number == num %}active{% endif %}">
+                    <a class="page-link" href="?page={{ num }}">{{ num }}</a>
+                  </li>
+                {% endif %}
+              {% endfor %}
+
+              {% if akbs.has_next %}
+              <li class="page-item">
+                <a class="page-link" href="?page={{ akbs.next_page_number }}">&raquo;</a>
+              </li>
+              {% endif %}
+            </ul>
+          </nav>
         </div>
-        {% endfor %}
+        {% endif %}
       </div>
 
-      {% if akbs.has_other_pages %}
-      <div class="mt-4">
-        <nav>
-          <ul class="pagination justify-content-center">
-            {% if akbs.has_previous %}
-              <li class="page-item"><a class="page-link" href="?page={{ akbs.previous_page_number }}">&laquo;</a></li>
-            {% endif %}
-            {% for num in akbs.paginator.page_range %}
-              {% if num >= akbs.number|add:-2 and num <= akbs.number|add:2 %}
-                <li class="page-item {% if akbs.number == num %}active{% endif %}">
-                  <a class="page-link" href="?page={{ num }}">{{ num }}</a>
-                </li>
-              {% endif %}
-            {% endfor %}
-            {% if akbs.has_next %}
-              <li class="page-item"><a class="page-link" href="?page={{ akbs.next_page_number }}">&raquo;</a></li>
-            {% endif %}
-          </ul>
-        </nav>
-      </div>
-      {% endif %}
     </div>
   </div>
 </div>
-
-<!-- ===== Пагинация ===== -->
-      {% if is_paginated %}
-      <nav aria-label="Страницы" class="d-flex justify-content-center mt-4">
-        <ul class="pagination mb-0">
-
-          {% if page_obj.has_previous %}
-          <li class="page-item">
-            <a class="page-link" href="{% url_replace page=1 %}">&laquo;</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="{% url_replace page=page_obj.previous_page_number %}">Назад</a>
-          </li>
-          {% else %}
-          <li class="page-item disabled"><span class="page-link">&laquo;</span></li>
-          <li class="page-item disabled"><span class="page-link">Назад</span></li>
-          {% endif %}
-
-          {% for num in page_obj.paginator.page_range %}
-          {% if num >= page_obj.number|add:-2 and num <= page_obj.number|add:2 %}
-          {% if num == page_obj.number %}
-          <li class="page-item active"><span class="page-link">{{ num }}</span></li>
-          {% else %}
-          <li class="page-item"><a class="page-link" href="{% url_replace page=num %}">{{ num }}</a></li>
-          {% endif %}
-          {% endif %}
-          {% endfor %}
-
-          {% if page_obj.has_next %}
-          <li class="page-item">
-            <a class="page-link" href="{% url_replace page=page_obj.next_page_number %}">Вперёд</a>
-          </li>
-          <li class="page-item">
-            <a class="page-link" href="{% url_replace page=page_obj.paginator.num_pages %}">&raquo;</a>
-          </li>
-          {% else %}
-          <li class="page-item disabled"><span class="page-link">Вперёд</span></li>
-          <li class="page-item disabled"><span class="page-link">&raquo;</span></li>
-          {% endif %}
-
-        </ul>
-      </nav>
-      {% endif %}
-      <!-- ===== /Пагинация ===== -->
 
 <script>
 function setupAccordionSearch(inputId, itemClass) {
   const input = document.getElementById(inputId);
   if (!input) return;
+
   input.addEventListener('input', function () {
     const q = this.value.toLowerCase();
-    document.querySelectorAll('.' + itemClass).forEach(it => {
-      const txt = it.textContent.toLowerCase();
-      it.style.display = txt.includes(q) ? 'block' : 'none';
+    document.querySelectorAll('.' + itemClass).forEach(function (item) {
+      const text = item.textContent.toLowerCase();
+      item.style.display = text.includes(q) ? 'block' : 'none';
     });
   });
 }
+
 document.addEventListener('DOMContentLoaded', function () {
   setupAccordionSearch('searchBrand', 'brand-item');
   setupAccordionSearch('searchModel', 'model-item');
@@ -253,11 +274,52 @@ document.addEventListener('DOMContentLoaded', function () {
 </script>
 
 <style>
-.brand-list::-webkit-scrollbar, 
-.model-list::-webkit-scrollbar { width: 6px; }
-.brand-list::-webkit-scrollbar-thumb, 
-.model-list::-webkit-scrollbar-thumb { border-radius: 3px; background: #c1c1c1; }
-.form-check { margin-bottom: 0.35rem; }
-.form-check-label { font-size: 0.9rem; }
+  .filter-card {
+      border-radius: 12px;
+  }
+
+  .filter-section-title {
+      font-weight: 600;
+      font-size: 0.95rem;
+  }
+
+  .filter-divider {
+      border-top: 1px solid #e3e6ea;
+      margin: 0.35rem 0 0.9rem;
+  }
+
+  .filter-collapse-btn {
+      background-color: #f8f9fa;
+      border: 1px solid #e3e6ea;
+      border-radius: 10px;
+      font-size: 0.95rem;
+      padding: 0.6rem 0.9rem;
+  }
+
+  .filter-collapse-btn:focus {
+      box-shadow: none;
+  }
+
+  .filter-collapse-body {
+      border: 1px solid #e3e6ea;
+      border-top: none;
+      border-radius: 0 0 10px 10px;
+      padding: 0.6rem 0.75rem 0.75rem;
+      background-color: #fff;
+  }
+
+  .akb-card {
+      transition: transform 0.2s ease, box-shadow 0.2s ease;
+  }
+
+  .akb-card:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+  }
+
+  .akb-image {
+      object-fit: contain;
+      height: 180px;
+  }
 </style>
 {% endblock %}
