@@ -5,4 +5,5 @@ app_name = 'disks'
 
 urlpatterns = [
     path('', views.DiskListView.as_view(), name='disks'),
+    path('<int:pk>/', views.DiskDetailView.as_view(), name='disk_detail'),
 ]

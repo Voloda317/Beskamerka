@@ -2,34 +2,41 @@
 {% block title %}{{ tire.name }}{% endblock %}
 
 {% block content %}
-<div class="container mt-4">
-    <div class="row">
-        <div class="col-md-6">
-            <img src="{{ tire.image_url }}" class="img-fluid" alt="{{ tire.name }}">
+<div class="container py-5">
+
+    <!-- Кнопка Назад -->
+    <a href="javascript:history.back()" class="btn btn-outline-secondary mb-4">
+        ← Назад
+    </a>
+
+    <div class="row align-items-center justify-content-center gy-4">
+        <!-- Фото -->
+        <div class="col-md-4 text-center">
+            <img src="{{ tire.image_url }}"
+                 class="img-fluid"
+                 alt="{{ tire.name }}"
+                 style="max-height: 380px; object-fit: contain;">
         </div>
-        <div class="col-md-6">
-            <h1>{{ tire.name }}</h1>
-            <p class="text-muted">Артикул: {{ tire.art }}</p>
-            
+
+        <!-- Основная информация -->
+        <div class="col-md-6 text-center">
+            <h1 class="h3 h-md-2 mb-2">{{ tire.name }}</h1>
+            <p class="text-muted mb-4">Артикул: {{ tire.art }}</p>
+
             <div class="mb-3">
-                <h3 class="text-primary">{{ tire.price }} ₽</h3>
-                <p class="text-success">В наличии: {{ tire.quantity }} шт.</p>
+                <div class="h3 text-primary mb-1">{{ tire.price }} ₽</div>
+                <div class="{% if tire.quantity > 0 %}text-success{% else %}text-danger{% endif %}">
+                    {% if tire.quantity > 0 %}
+                        В наличии: {{ tire.quantity }} шт.
+                    {% else %}
+                        Нет в наличии
+                    {% endif %}
+                </div>
             </div>
-            
-            <div class="mb-4">
-                <h5>Характеристики:</h5>
-                <ul class="list-unstyled">
-                    <li><strong>Бренд:</strong> {{ tire.manufacturer }}</li>
-                    <li><strong>Модель:</strong> {{ tire.model }}</li>
-                    <li><strong>Сезон:</strong> {{ tire.season }}</li>
-                    <li><strong>Шипы:</strong> {% if tire.spikes %}Да{% else %}Нет{% endif %}</li>
-                    <!-- Добавьте другие характеристики по необходимости -->
-                </ul>
-            </div>
-            
-            <div class="d-flex gap-2">
-                <button class="btn btn-primary btn-lg">В корзину</button>
-                <button class="btn btn-outline-secondary btn-lg">В избранное</button>
+
+            <div class="d-flex justify-content-center gap-3 mt-3">
+                <button class="btn btn-primary btn-lg px-4">В корзину</button>
+                <button class="btn btn-outline-secondary btn-lg px-4">В избранное</button>
             </div>
         </div>
     </div>

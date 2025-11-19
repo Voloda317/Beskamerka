@@ -1,0 +1,57 @@
+{% extends "base.html" %}
+{% block title %}{{ disk.name }}{% endblock %}
+
+{% block content %}
+<div class="container py-5">
+    <a href="javascript:history.back()" class="btn btn-outline-secondary mb-4">
+        ← Назад
+    </a>
+
+    <div class="row align-items-center justify-content-center gy-4">
+        <!-- Фото диска -->
+        <div class="col-md-4 text-center">
+            <img src="{{ disk.img }}"
+                 class="img-fluid"
+                 alt="{{ disk.name }}"
+                 style="max-height: 380px; object-fit: contain;">
+        </div>
+
+        <!-- Основная информация -->
+        <div class="col-md-6 text-center">
+            <h1 class="h3 h-md-2 mb-2">{{ disk.name }}</h1>
+            <p class="text-muted mb-4">Артикул: {{ disk.art }}</p>
+
+            <div class="mb-3">
+                <div class="h3 text-primary mb-1">{{ disk.price }} ₽</div>
+                <div class="{% if disk.quantity > 0 %}text-success{% else %}text-danger{% endif %}">
+                    {% if disk.quantity > 0 %}
+                        В наличии: {{ disk.quantity }} шт.
+                    {% else %}
+                        Нет в наличии
+                    {% endif %}
+                </div>
+            </div>
+
+            <div class="mb-4">
+                <h5>Характеристики:</h5>
+                <ul class="list-unstyled">
+                    <li><strong>Бренд:</strong> {{ disk.manufacturer }}</li>
+                    <li><strong>Модель:</strong> {{ disk.model }}</li>
+                    <li><strong>Диаметр:</strong> {{ disk.diameter }} R</li>
+                    <li><strong>Ширина:</strong> {{ disk.width }} мм</li>
+                    <li><strong>PCD:</strong> {{ disk.pcd }}</li>
+                    <li><strong>Количество болтов:</strong> {{ disk.bolts }}</li>
+                    <li><strong>ET:</strong> {{ disk.et }}</li>
+                    <li><strong>DIA:</strong> {{ disk.dia }}</li>
+                    <li><strong>Тип:</strong> {{ disk.disk_type }}</li>
+                </ul>
+            </div>
+
+            <div class="d-flex justify-content-center gap-3 mt-3">
+                <button class="btn btn-primary btn-lg px-4">В корзину</button>
+                <button class="btn btn-outline-secondary btn-lg px-4">В избранное</button>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
