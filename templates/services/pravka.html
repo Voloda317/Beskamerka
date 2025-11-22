@@ -1,99 +1,123 @@
 {% extends "base.html" %}
 {% load static %}
 
-{% block title %}Правка дисков{% endblock %}
+{% block title %}Правка дисков — услуги сервиса{% endblock %}
 
 {% block content %}
 
 <!-- HERO -->
-<section class="position-relative">
-  <div class="ratio" style="--bs-aspect-ratio: 22%;">
-    <div
-      class="w-100 h-100"
-      style="
-        background-image:
-          linear-gradient(90deg, rgba(0,0,0,.45) 0%, rgba(0,0,0,.15) 50%, rgba(0,0,0,0) 100%),
-          url('{% static 'img/services/pravka.jpg' %}');
-        background-size: cover;
-        background-position: center;
-      ">
-    </div>
+<section class="position-relative overflow-hidden">
+  <!-- фоновая картинка -->
+  <div class="w-100" style="
+      background: url('{% static 'img/services/pravka.jpg' %}') center/cover no-repeat;
+      height: 360px;">
   </div>
 
-  <!-- Текст на баннере -->
-  <div class="container">
-    <div class="position-absolute top-0 start-0 w-100" style="padding-top: min(8vw, 4rem);">
-      <div class="text-white" style="max-width: 420px; margin-left: .5rem;">
-        <div class="bg-dark bg-opacity-50 d-inline-block px-2 py-1 fw-semibold rounded-1">
-          Правка дисков
+  <!-- затемнение -->
+  <div class="position-absolute top-0 start-0 w-100 h-100"
+       style="background: linear-gradient(90deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,0) 100%);"></div>
+
+  <!-- контент -->
+  <div class="position-absolute top-50 start-50 translate-middle w-100">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-lg-6 text-white">
+          <h1 class="display-6 fw-semibold mb-2">Правка дисков</h1>
+          <p class="lead mb-4">
+            Восстанавливаем геометрию штампованных и литых дисков после ям, ударов и бордюров.
+          </p>
         </div>
-        <p class="mt-3 mb-3 small">
-          Восстановление геометрии литых дисков.<br>
-          Быстро и качественно — гарантия 100%!
-        </p>
+        <div class="col-12 col-lg-6 text-center d-none d-lg-block">
+
       </div>
     </div>
   </div>
 </section>
 
-<!-- КОНТЕНТ -->
-<section class="py-4 py-md-5 bg-white">
+<!-- ХЛЕБНЫЕ КРОШКИ -->
+<nav class="py-3" aria-label="breadcrumb">
   <div class="container">
+    <ol class="breadcrumb mb-0 small">
+      <li class="breadcrumb-item"><a href="{% url 'homepage:home' %}">Главная</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'services:services' %}">Услуги</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Правка дисков</li>
+    </ol>
+  </div>
+</nav>
 
-    <!-- Хлебные крошки -->
-    <nav aria-label="breadcrumb" class="mb-3">
-      <ol class="breadcrumb small mb-0">
-        <li class="breadcrumb-item"><a href="/">Главная</a></li>
-        <li class="breadcrumb-item"><a href="/services/">Услуги</a></li>
-        <li class="breadcrumb-item active" aria-current="page">Правка дисков</li>
-      </ol>
-    </nav>
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<section class="pb-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Левое меню -->
+      <aside class="col-lg-3">
+        <div class="list-group list-group-flush shadow-sm rounded-3 overflow-hidden">
+          <a class="list-group-item list-group-item-action"
+             href="{% url 'services:tire_services' %}">Шиномонтаж</a>
+          <a class="list-group-item list-group-item-action"
+             href="{% url 'services:balancing' %}">Балансировка колёс</a>
+          <a class="list-group-item list-group-item-action active" aria-current="true"
+             href="{% url 'services:pravka' %}">
+            Правка дисков
+          </a>
+          <a class="list-group-item list-group-item-action"
+             href="{% url 'services:remont' %}">Ремонт резины</a>
+          <a class="list-group-item list-group-item-action"
+             href="{% url 'services:keeping_tires' %}">Сезонное хранение</a>
+          <a class="list-group-item list-group-item-action" href="#">Прайс-лист на услуги</a>
+        </div>
+      </aside>
 
-    <!-- Заголовок + иконка поделиться (как на скрине) -->
-    <div class="d-flex align-items-start justify-content-between gap-3 mb-3">
-      <h1 class="h3 mb-0">Правка дисков</h1>
-      <button class="btn btn-link text-muted p-0" type="button" title="Поделиться">
-        <i class="bi bi-share"></i>
-      </button>
-    </div>
+      <!-- Текст -->
+      <article class="col-lg-9">
+        <h2 class="h3 mb-3">Правка и ремонт дисков</h2>
 
-    <!-- Текстовый блок -->
-    <div class="row">
-      <div class="col-12 col-lg-10">
         <p>
-          Колёсные диски составляют основу колеса и не нужно говорить о том, насколько важна их роль.
-          В наших реалиях езда по городу не всегда напоминает приятную прогулку и никто не застрахован
-          от наезда на яму или другую неровность дороги. Зачастую это приводит к неприятным последствиям,
-          вплоть до полной непригодности колёсного диска. Однако далеко не всегда подобные ситуации требуют
-          замены деформированной детали — ведь существует возможность ремонта. Мы выполняем правку штампованных
-          и литых дисков любого радиуса.
+          Попадание в глубокую яму, удар о бордюр или длительная эксплуатация по плохим дорогам приводит
+          к деформации диска. Это вызывает биение руля, ухудшение управляемости и ускоренный износ шин.
         </p>
 
-        <p class="mb-2">Что делаем в рамках услуги:</p>
-        <ul class="list-unstyled ps-3 mb-4">
-          <li class="mb-1">— устранение деформаций прокаткой;</li>
-          <li class="mb-1">— сварка трещин;</li>
-          <li class="mb-1">— выправка вмятин;</li>
-          <li>— устранение «осевого биения».</li>
+        <p>
+          Мы выполняем правку штампованных и литых дисков на специализированном оборудовании
+          с обязательной диагностикой и контролем геометрии.
+        </p>
+
+        <h3 class="h5 mt-4 mb-2">Как проходит процедура</h3>
+        <ul class="small mb-4">
+          <li class="mb-1">— Снятие колеса и внешний осмотр диска.</li>
+          <li class="mb-1">— Установка на станок и проверка биения.</li>
+          <li class="mb-1">— Восстановление формы прокаткой или выправлением в нескольких точках.</li>
+          <li class="mb-1">— Контроль остаточного биения, балансировка колеса при необходимости.</li>
+        </ul>
+
+        <h3 class="h5 mt-4 mb-2">Когда правка необходима</h3>
+        <ul class="small mb-4">
+          <li class="mb-1">— Чувствуется вибрация на руле на определённой скорости.</li>
+          <li class="mb-1">— Видны вмятины или «яйцо» на ободе.</li>
+          <li class="mb-1">— Наблюдается неравномерный износ шин по внутренней/внешней стороне.</li>
         </ul>
 
         <p>
-          Современное оборудование и предварительная диагностика гарантируют точность измерений и
-          обеспечивают возможность предложить оптимальный вариант по соотношению стоимость/качество/надёжность.
-          Высококвалифицированные специалисты выполнят работы в обозначенный срок и дадут рекомендации
-          по подбору дисков для вашего автомобиля.
+          В ряде случаев (глубокие трещины, сильные разломы) правка диска небезопасна — тогда мастер честно
+          рекомендует замену. Мы не выполняем ремонт, если он может повлиять на вашу безопасность.
         </p>
-
-        <p>
-          Суть метода заключается в том, что повреждённый диск после диагностики устанавливается в станок
-          и при помощи специальных валиков приводится к изначальной форме прокатыванием. В первую очередь
-          устраняются серьёзные повреждения, затем производится точная доводка обода колеса.
-        </p>
-
-      </div>
+      </article>
     </div>
-
   </div>
 </section>
+
+<!-- ЛЁГКИЕ СТИЛИ СТРАНИЦЫ -->
+<style>
+.list-group-item.active{
+  background-color:#0d6efd;
+  border-color:#0d6efd;
+}
+
+.list-group-item,
+.btn,
+.border { transition: all .2s ease; }
+
+.list-group { box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+</style>
 
 {% endblock %}

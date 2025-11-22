@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Бесплатный шиномонтаж — услуги сервиса{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="position-relative overflow-hidden">
+  <div class="w-100"
+       style="background: url('{% static 'img/services/tires-hero.jpg' %}') center/cover no-repeat;
+              height: 320px;">
+  </div>
+
+  <div class="position-absolute top-0 start-0 w-100 h-100"
+       style="background: linear-gradient(90deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,0) 100%);">
+  </div>
+
+  <div class="position-absolute top-50 start-50 translate-middle w-100">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-lg-7 text-white">
+          <h1 class="display-6 fw-semibold mb-3">Бесплатный шиномонтаж</h1>
+          <p class="lead mb-0">
+            При покупке комплекта шин — шиномонтаж бесплатно!  
+            Профессиональная установка, современное оборудование и гарантия на все работы.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ХЛЕБНЫЕ КРОШКИ -->
+<nav class="py-3" aria-label="breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb mb-0 small">
+      <li class="breadcrumb-item"><a href="{% url 'homepage:home' %}">Главная</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'sale:sale' %}">Акции</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Бесплатный шиномонтаж</li>
+    </ol>
+  </div>
+</nav>
+
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<section class="py-4 py-md-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <article class="col-lg-10">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+          <div class="card-body p-4 p-md-5">
+
+            <!-- Заголовок -->
+            <div class="text-center mb-4 mb-md-5">
+              <h2 class="h3 mb-3">Акция: Бесплатный шиномонтаж</h2>
+              <p class="mb-2">
+                Профессиональная установка новых шин — важнейший этап подготовки автомобиля к сезону.
+              </p>
+              <p class="mb-0">
+                При покупке комплекта шин у нас — монтаж выполняется бесплатно на современном оборудовании.
+              </p>
+            </div>
+
+            <!-- Два столбца: что входит / когда обращаться -->
+            <div class="row g-4">
+
+              <!-- Что входит -->
+              <div class="col-md-6">
+                <h3 class="h5 mb-3 text-center text-md-start">Что входит в бесплатный шиномонтаж</h3>
+                <ul class="list-unstyled small mb-0">
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Снятие и установка колёс на автомобиль.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Монтаж и демонтаж шин (включая RunFlat и низкопрофильные).</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Замена камерных и бескамерных шин.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Устранение мелких повреждений и проколов.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Контроль состояния диска, резины, рекомендация по ремонту.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Когда обращаться -->
+              <div class="col-md-6">
+                <h3 class="h5 mb-3 text-center text-md-start">Когда стоит приехать к нам</h3>
+                <ul class="list-unstyled small mb-0">
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-wrench-adjustable me-2 mt-1 text-primary"></i>
+                    <span>Сезонная переобувка: лето/зима.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-wrench-adjustable me-2 mt-1 text-primary"></i>
+                    <span>Вибрации руля или стуки при движении.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-wrench-adjustable me-2 mt-1 text-primary"></i>
+                    <span>Неравномерный или ускоренный износ протектора.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-wrench-adjustable me-2 mt-1 text-primary"></i>
+                    <span>Проколы, порезы, повреждения шин.</span>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+            <!-- CTA блок -->
+            <div class="mt-4 mt-md-5 p-3 p-md-4 bg-body-secondary rounded-3 text-center">
+              <p class="mb-2">
+                Работы выполняются быстро и аккуратно, с соблюдением всех требований производителей шин.
+              </p>
+              <p class="small text-muted mb-0">
+                Акция действует только при покупке комплекта шин.  
+                Уточните подробности и наличие размеров — по телефону из раздела «Контакты».
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .card {
+    border-radius: 1rem;
+  }
+</style>
+
+{% endblock %}

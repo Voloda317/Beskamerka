@@ -1,0 +1,143 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Бесплатная доставка по Екатеринбургу — услуги сервиса{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="position-relative overflow-hidden">
+  <div class="w-100"
+       style="background: url('{% static 'img/services/free_shiping.jpg' %}') center/cover no-repeat;
+              height: 320px;">
+  </div>
+
+  <div class="position-absolute top-0 start-0 w-100 h-100"
+       style="background: linear-gradient(90deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,0) 100%);">
+  </div>
+
+  <div class="position-absolute top-50 start-50 translate-middle w-100">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-lg-7 text-white">
+          <h1 class="display-6 fw-semibold mb-3">Бесплатная доставка от 6000 ₽ по Екатеринбургу</h1>
+          <p class="lead mb-0">
+            Заказывайте шины, диски и аккумуляторы с доставкой по городу.  
+            При сумме заказа от 6000 ₽ привезём ваш заказ бесплатно.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ХЛЕБНЫЕ КРОШКИ -->
+<nav class="py-3" aria-label="breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb mb-0 small">
+      <li class="breadcrumb-item"><a href="{% url 'homepage:home' %}">Главная</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'sale:sale' %}">Акции</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Бесплатная доставка</li>
+    </ol>
+  </div>
+</nav>
+
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<section class="py-4 py-md-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <article class="col-lg-10">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+          <div class="card-body p-4 p-md-5">
+
+            <!-- Заголовок и общая инфа -->
+            <div class="text-center mb-4 mb-md-5">
+              <h2 class="h3 mb-3">Акция: бесплатная доставка по Екатеринбургу</h2>
+              <p class="mb-2">
+                Мы знаем, что покупать тяжёлые и габаритные товары не всегда удобно — не у каждого есть
+                свободное время и подходящий транспорт.
+              </p>
+              <p class="mb-0">
+                Поэтому при сумме заказа от <strong>6000 ₽</strong> мы доставим шины, диски или аккумуляторы
+                по Екатеринбургу бесплатно.
+              </p>
+            </div>
+
+            <!-- Два столбца -->
+            <div class="row g-4">
+
+              <!-- Как работает доставка -->
+              <div class="col-md-6">
+                <h3 class="h5 mb-3 text-center text-md-start">Как работает бесплатная доставка</h3>
+                <ul class="list-unstyled small mb-0">
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-truck me-2 mt-1 text-success"></i>
+                    <span>Оформляете заказ на сумму от 6000 ₽ онлайн или по телефону.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-truck me-2 mt-1 text-success"></i>
+                    <span>Подтверждаем наличие товара и согласуем удобный день и время доставки.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-truck me-2 mt-1 text-success"></i>
+                    <span>Привозим заказ по указанному адресу в пределах Екатеринбурга.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-truck me-2 mt-1 text-success"></i>
+                    <span>Помогаем разгрузить и проверить товар на целостность и комплектацию.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Условия и ограничения -->
+              <div class="col-md-6">
+                <h3 class="h5 mb-3 text-center text-md-start">Условия акции и ограничения</h3>
+                <ul class="list-unstyled small mb-0">
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-info-circle me-2 mt-1 text-primary"></i>
+                    <span>Бесплатная доставка действует только в пределах города Екатеринбурга.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-info-circle me-2 mt-1 text-primary"></i>
+                    <span>Минимальная сумма заказа для бесплатной доставки — 6000 ₽.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-info-circle me-2 mt-1 text-primary"></i>
+                    <span>В пригороды и отдалённые районы возможна доставка по индивидуальному тарифу.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-info-circle me-2 mt-1 text-primary"></i>
+                    <span>Время доставки согласуется заранее, возможна доставка в день заказа при наличии окна.</span>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+            <!-- CTA -->
+            <div class="mt-4 mt-md-5 p-3 p-md-4 bg-body-secondary rounded-3 text-center">
+              <p class="mb-2">
+                Хотите оформить заказ с доставкой?  
+                Подберите шины, диски или аккумулятор и сообщите менеджеру, что хотите воспользоваться акцией
+                бесплатной доставки.
+              </p>
+              <p class="small text-muted mb-0">
+                Подробности акции, актуальные зоны доставки и расписание вы можете уточнить по телефону
+                в разделе «Контакты».
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .card {
+    border-radius: 1rem;
+  }
+</style>
+
+{% endblock %}

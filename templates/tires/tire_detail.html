@@ -2,43 +2,158 @@
 {% block title %}{{ tire.name }}{% endblock %}
 
 {% block content %}
-<div class="container py-5">
+<div class="container tire-detail-container pt-4 pb-5">
 
     <!-- Кнопка Назад -->
-    <a href="javascript:history.back()" class="btn btn-outline-secondary mb-4">
-        ← Назад
+    <a href="javascript:history.back()" class="btn btn-outline-secondary mb-4 d-inline-flex align-items-center">
+        <i class="bi bi-arrow-left me-1"></i> Назад
     </a>
 
-    <div class="row align-items-center justify-content-center gy-4">
-        <!-- Фото -->
-        <div class="col-md-4 text-center">
-            <img src="{{ tire.image_url }}"
-                 class="img-fluid"
-                 alt="{{ tire.name }}"
-                 style="max-height: 380px; object-fit: contain;">
+    <div class="row gy-5">
+        
+        <!-- Изображение -->
+        <div class="col-lg-5 text-center">
+            <div class="p-4 shadow-sm bg-white rounded-4">
+
+                <img src="{{  tire.image_url }}"
+                     alt="{{ tire.name }}"
+                     class="img-fluid mb-3"
+                     style="max-height: 260px; object-fit: contain;">
+
+                {% if tire.season == 'summer' %}
+                    <span class="badge bg-warning text-dark px-3 py-2 rounded-pill">
+                        <i class="bi bi-sun me-1"></i> Летние
+                    </span>
+                {% elif tire.season == 'winter' %}
+                    <span class="badge bg-primary px-3 py-2 rounded-pill">
+                        <i class="bi bi-snow me-1"></i> Зимние
+                    </span>
+                {% elif tire.season == 'all_season' %}
+                    <span class="badge bg-success px-3 py-2 rounded-pill">
+                        <i class="bi bi-cloud-sun me-1"></i> Всесезонные
+                    </span>
+                {% endif %}
+
+                {% if tire.studded %}
+                    <span class="badge bg-secondary px-3 py-2 rounded-pill ms-2">
+                        <i class="bi bi-circle-half me-1"></i> Шипованные
+                    </span>
+                {% endif %}
+
+            </div>
         </div>
 
-        <!-- Основная информация -->
-        <div class="col-md-6 text-center">
-            <h1 class="h3 h-md-2 mb-2">{{ tire.name }}</h1>
-            <p class="text-muted mb-4">Артикул: {{ tire.art }}</p>
+        <!-- Описание и характеристики -->
+        <div class="col-lg-7">
 
-            <div class="mb-3">
-                <div class="h3 text-primary mb-1">{{ tire.price }} ₽</div>
-                <div class="{% if tire.quantity > 0 %}text-success{% else %}text-danger{% endif %}">
+            <!-- Основная информация -->
+            <div class="mb-4">
+                <h1 class="h3 fw-semibold mb-1">{{ tire.name }}</h1>
+                <div class="text-muted small mb-2">
+                    Артикул: {{ tire.art }}
+                </div>
+
+                <!-- Размерность -->
+                <div class="fs-5 mb-3">
+                    <span class="fw-semibold">{{ tire.width }}/{{ tire.height }} {{ tire.radius }}</span>
+                    {% if tire.load_index or tire.speed_index %}
+                        <span class="text-muted ms-1">
+                            {% if tire.load_index %}{{ tire.load_index }}{% endif %}
+                            {% if tire.speed_index %}/{{ tire.speed_index }}{% endif %}
+                        </span>
+                    {% endif %}
+                </div>
+
+                <!-- Цена и наличие -->
+                <div class="d-flex align-items-center mb-3">
+                    <div class="me-4">
+                        {% if tire.price %}
+                            <div class="fs-4 fw-bold text-primary">
+                                {{ tire.price }} ₽
+                            </div>
+                        {% else %}
+                            <div class="fs-5 text-muted">Уточняйте цену</div>
+                        {% endif %}
+                    </div>
+
                     {% if tire.quantity > 0 %}
-                        В наличии: {{ tire.quantity }} шт.
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                            <i class="bi bi-check-circle me-1"></i> В наличии: {{ tire.quantity }} шт.
+                        </span>
                     {% else %}
-                        Нет в наличии
+                        <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">
+                            <i class="bi bi-x-circle me-1"></i> Нет в наличии
+                        </span>
                     {% endif %}
                 </div>
             </div>
 
-            <div class="d-flex justify-content-center gap-3 mt-3">
-                <button class="btn btn-primary btn-lg px-4">В корзину</button>
-                <button class="btn btn-outline-secondary btn-lg px-4">В избранное</button>
+            <!-- Характеристики -->
+            <div class="bg-light rounded-4 p-3 mb-4 shadow-sm">
+                <h5 class="fw-semibold mb-3">Характеристики</h5>
+
+                <div class="row g-3 small">
+                    <div class="col-6"><strong>Бренд:</strong> {{ tire.manufacturer }}</div>
+                    <div class="col-6"><strong>Модель:</strong> {{ tire.model }}</div>
+
+                    <div class="col-6"><strong>Ширина:</strong> {{ tire.width }}</div>
+                    <div class="col-6"><strong>Профиль:</strong> {{ tire.height }}</div>
+
+                    <div class="col-6"><strong>Диаметр:</strong> {{ tire.radius }} R</div>
+                    <div class="col-6">
+                        <strong>Сезонность:</strong>
+                        {% if tire.season == 'Лето' %}Летние{% elif tire.season == 'Зима' %}Зимние{% else %}—{% endif %}
+                    </div>
+
+                    <div class="col-6">
+                        <strong>Шипы:</strong>
+                        {% if tire.studded %}
+                            Есть
+                        {% else %}
+                            Нет
+                        {% endif %}
+                    </div>
+
+                    <div class="col-6">
+                        <strong>Индекс нагрузки:</strong>
+                        {{ tire.load_index|default:"—" }}
+                    </div>
+
+                    <div class="col-6">
+                        <strong>Индекс скорости:</strong>
+                        {{ tire.speed_index|default:"—" }}
+                    </div>
+
+                </div>
             </div>
+
+            <!-- Описание -->
+            {% if tire.description %}
+            <div class="bg-white rounded-4 p-3 mb-4 shadow-sm">
+                <h5 class="fw-semibold mb-2">Описание</h5>
+                <p class="mb-0 small text-muted">{{ tire.description }}</p>
+            </div>
+            {% endif %}
+
+            <!-- Блок покупки -->
+            <div class="d-flex flex-wrap align-items-center gap-3">
+                <button class="btn btn-primary btn-lg px-4 d-flex align-items-center">
+                    <i class="bi bi-cart-plus me-2"></i> В корзину
+                </button>
+
+                <button class="btn btn-outline-secondary btn-lg px-4 d-flex align-items-center">
+                    <i class="bi bi-heart me-2"></i> В избранное
+                </button>
+            </div>
+
         </div>
     </div>
 </div>
+
+<style>
+    .tire-detail-container { max-width: 1150px; }
+    .rounded-4 { border-radius: 18px !important; }
+    .btn-lg { border-radius: 12px; }
+</style>
+
 {% endblock %}

@@ -28,11 +28,12 @@
 
         <div class="row justify-content-center g-4">
 
+            <!-- Акция: сезонное хранение шин -->
             <div class="col-lg-10">
                 <div class="card border-0 shadow-sm promotion-card">
                     <div class="row g-0 align-items-center">
                         <div class="col-md-4 col-lg-3">
-                            <img src="{% static 'img/sale/tire_studding.jpg' %}"
+                            <img src="{% static 'img/sale/keeping_tires.jpg' %}"
                                  class="img-fluid h-100 w-100 object-fit-cover"
                                  alt="Сезонное хранение шин">
                         </div>
@@ -43,15 +44,17 @@
                                     Избавьте себя от лишних проблем — ваши покрышки будут храниться в надлежащих
                                     условиях и под надёжной защитой до следующего сезона.
                                 </p>
-                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                <a href="{% url 'sale:seasonal_storage' %}"
+                                   class="btn btn-outline-primary btn-sm">
                                     Подробнее
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Акция: бесплатный шиномонтаж -->
             <div class="col-lg-10">
                 <div class="card border-0 shadow-sm promotion-card">
                     <div class="row g-0 align-items-center">
@@ -67,15 +70,17 @@
                                     Горячие цены на зимние покрышки. Отличная возможность выгодно обновить комплект
                                     перед новым сезоном.
                                 </p>
-                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                <a href="{% url 'sale:free_tire_service' %}"
+                                   class="btn btn-outline-primary btn-sm">
                                     Подробнее
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Акция: бесплатная доставка -->
             <div class="col-lg-10">
                 <div class="card border-0 shadow-sm promotion-card">
                     <div class="row g-0 align-items-center">
@@ -91,20 +96,22 @@
                                     При заказе на сумму от 6000 рублей доставка по городу — бесплатно. В большинстве
                                     случаев доставляем в день заказа.
                                 </p>
-                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                <a href="{% url 'sale:free_shipping' %}#delivery"
+                                   class="btn btn-outline-primary btn-sm">
                                     Подробнее
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>
                 </div>
             </div>
 
+            <!-- Акция: дошиповка шин -->
             <div class="col-lg-10">
                 <div class="card border-0 shadow-sm promotion-card">
                     <div class="row g-0 align-items-center">
                         <div class="col-md-4 col-lg-3">
-                            <img src="{% static 'img/sale/keeping_tires.jpg' %}"
+                            <img src="{% static 'img/sale/tire_studding.jpg' %}"
                                  class="img-fluid h-100 w-100 object-fit-cover"
                                  alt="Дошиповка шин">
                         </div>
@@ -115,9 +122,10 @@
                                     Восстановим недостающие шипы и улучшим сцепление с дорогой. Подготовьте автомобиль
                                     к зимнему сезону заранее.
                                 </p>
-                                <button type="button" class="btn btn-outline-primary btn-sm">
+                                <a href="{% url 'sale:sale_doship' %}"
+                                   class="btn btn-outline-primary btn-sm">
                                     Подробнее
-                                </button>
+                                </a>
                             </div>
                         </div>
                     </div>

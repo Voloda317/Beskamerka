@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Дошиповка шин — услуги сервиса{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="position-relative overflow-hidden">
+  <div class="w-100"
+       style="background: url('{% static 'img/services/doship.jpg' %}') center/cover no-repeat;
+              height: 320px;">
+  </div>
+
+  <div class="position-absolute top-0 start-0 w-100 h-100"
+       style="background: linear-gradient(90deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,0) 100%);">
+  </div>
+
+  <div class="position-absolute top-50 start-50 translate-middle w-100">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-lg-7 text-white">
+          <h1 class="display-6 fw-semibold mb-3">Дошиповка шин от 15 ₽ за шип</h1>
+          <p class="lead mb-0">
+            Восстанавливаем недостающие шипы, улучшаем сцепление с дорогой и продлеваем срок службы зимних шин.
+            Работы выполняем на профессиональном оборудовании.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ХЛЕБНЫЕ КРОШКИ -->
+<nav class="py-3" aria-label="breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb mb-0 small">
+      <li class="breadcrumb-item"><a href="{% url 'homepage:home' %}">Главная</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'sale:sale' %}">Акции</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Дошиповка шин</li>
+    </ol>
+  </div>
+</nav>
+
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<section class="py-4 py-md-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <article class="col-lg-10">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+          <div class="card-body p-4 p-md-5">
+
+            <!-- Заголовок -->
+            <div class="text-center mb-4 mb-md-5">
+              <h2 class="h3 mb-3">Что такое дошиповка шин</h2>
+              <p class="mb-2">
+                Со временем часть шипов выпадает, и шина теряет сцепление с обледенелой и укатанной дорогой.
+                Это снижает безопасность и увеличивает тормозной путь.
+              </p>
+              <p class="mb-0">
+                Дошиповка позволяет восстановить недостающие шипы и вернуть шинe изначальные
+                характеристики без покупки нового комплекта.
+              </p>
+            </div>
+
+            <!-- Два столбца -->
+            <div class="row g-4">
+
+              <!-- Что мы делаем -->
+              <div class="col-md-6">
+                <h3 class="h5 mb-3 text-center text-md-start">Что входит в услугу дошиповки</h3>
+                <ul class="list-unstyled small mb-0">
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Осмотр шин и оценка возможности дошиповки.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Подбор шипов по типу и размеру под конкретную модель шины.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Очистка и подготовка посадочных мест под шипы.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Установка новых шипов на специализированном оборудовании.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Рекомендации по аккуратной обкатке после дошиповки.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Когда имеет смысл -->
+              <div class="col-md-6">
+                <h3 class="h5 mb-3 text-center text-md-start">Когда имеет смысл дошиповать шины</h3>
+                <ul class="list-unstyled small mb-0">
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-snow me-2 mt-1 text-primary"></i>
+                    <span>Потеряна заметная часть шипов, но протектор ещё глубокий.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-snow me-2 mt-1 text-primary"></i>
+                    <span>Часто ездите по голому льду, укатанному снегу, городским спускам и подъёмам.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-snow me-2 mt-1 text-primary"></i>
+                    <span>Хотите продлить срок службы текущего комплекта, не покупая новые шины.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-snow me-2 mt-1 text-primary"></i>
+                    <span>Нужно «оживить» комплект перед продажей автомобиля или шин.</span>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+            <!-- CTA блок -->
+            <div class="mt-4 mt-md-5 p-3 p-md-4 bg-body-secondary rounded-3 text-center">
+              <p class="mb-2">
+                Стоимость дошиповки — от <strong>15 ₽ за шип</strong>.  
+                Точная цена зависит от количества недостающих шипов и типа шины.
+              </p>
+              <p class="small text-muted mb-0">
+                Не все шины подлежат дошиповке (сильный износ, возраст, особенности рисунка протектора).  
+                Мастер на месте оценит состояние и предложит оптимальный вариант: дошиповку или замену.
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .card {
+    border-radius: 1rem;
+  }
+</style>
+
+{% endblock %}

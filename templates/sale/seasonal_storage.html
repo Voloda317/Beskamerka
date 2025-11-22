@@ -1,0 +1,142 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Сезонное хранение шин — услуги сервиса{% endblock %}
+
+{% block content %}
+
+<!-- HERO -->
+<section class="position-relative overflow-hidden">
+  <div class="w-100"
+       style="background: url('{% static 'img/services/keeping_tires.jpg' %}') center/cover no-repeat;
+              height: 320px;">
+  </div>
+
+  <div class="position-absolute top-0 start-0 w-100 h-100"
+       style="background: linear-gradient(90deg, rgba(0,0,0,.78) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,0) 100%);">
+  </div>
+
+  <div class="position-absolute top-50 start-50 translate-middle w-100">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-lg-7 text-white">
+          <h1 class="display-6 fw-semibold mb-3">Сезонное хранение шин</h1>
+          <p class="lead mb-0">
+            Освободите место дома и не переживайте за сохранность резины — мы храним шины в правильных условиях
+            и выдаём по предварительной записи в любой удобный день.
+          </p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ХЛЕБНЫЕ КРОШКИ -->
+<nav class="py-3" aria-label="breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb mb-0 small">
+      <li class="breadcrumb-item"><a href="{% url 'homepage:home' %}">Главная</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'sale:sale' %}">Акции</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Сезонное хранение</li>
+    </ol>
+  </div>
+</nav>
+
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<section class="py-4 py-md-5 bg-light">
+  <div class="container">
+    <div class="row justify-content-center">
+      <article class="col-lg-10">
+        <div class="card border-0 shadow-sm rounded-4 overflow-hidden">
+          <div class="card-body p-4 p-md-5">
+
+            <!-- Заголовок и вводный текст -->
+            <div class="text-center mb-4 mb-md-5">
+              <h2 class="h3 mb-3">Почему важно правильно хранить шины</h2>
+              <p class="mb-2">
+                Хранение шин в гараже, на балконе или в подвале часто приводит к трещинам, деформации
+                и ускоренному старению резины. Перепады температур, влажность и солнечный свет
+                заметно сокращают срок службы комплекта.
+              </p>
+              <p class="mb-0">
+                Мы предлагаем услугу сезонного хранения шин в специально оборудованном помещении
+                и соблюдаем рекомендации производителей по температуре, влажности и способу складирования.
+              </p>
+            </div>
+
+            <!-- Как всё устроено / Преимущества -->
+            <div class="row g-4">
+
+              <!-- Как всё устроено -->
+              <div class="col-md-6">
+                <h3 class="h5 mb-3 text-center text-md-start">Как всё устроено</h3>
+                <ul class="list-unstyled small mb-0">
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Принимаем комплект шин или колёс в сборе, осматриваем и фиксируем состояние.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Каждому комплекту присваиваем номер, маркируем и заносим в базу.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>Храним на стеллажах в закрытом помещении с контролируемыми условиями.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-check-circle me-2 mt-1 text-success"></i>
+                    <span>По предварительной записи подготавливаем комплект к выдаче или установке.</span>
+                  </li>
+                </ul>
+              </div>
+
+              <!-- Преимущества -->
+              <div class="col-md-6">
+                <h3 class="h5 mb-3 text-center text-md-start">Преимущества профессионального хранения</h3>
+                <ul class="list-unstyled small mb-0">
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-shield-check me-2 mt-1 text-primary"></i>
+                    <span>Экономия места дома или в гараже.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-shield-check me-2 mt-1 text-primary"></i>
+                    <span>Сохранение эластичности резины и рисунка протектора.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-shield-check me-2 mt-1 text-primary"></i>
+                    <span>Отсутствие лишних нагрузок на боковины и корд.</span>
+                  </li>
+                  <li class="d-flex mb-2">
+                    <i class="bi bi-shield-check me-2 mt-1 text-primary"></i>
+                    <span>Удобство: привезли колёса один раз — забрали уже на установленном автомобиле.</span>
+                  </li>
+                </ul>
+              </div>
+
+            </div>
+
+            <!-- Небольшой CTA-блок -->
+            <div class="mt-4 mt-md-5 p-3 p-md-4 bg-body-secondary rounded-3 text-center">
+              <p class="mb-2">
+                На каждый комплект оформляется договор хранения с указанием сроков и условий.
+                Вы можете забрать шины досрочно или продлить хранение на следующий сезон.
+              </p>
+              <p class="small text-muted mb-0">
+                Уточнить стоимость и свободные места можно по телефону, указанному в разделе «Контакты».
+              </p>
+            </div>
+
+          </div>
+        </div>
+      </article>
+    </div>
+  </div>
+</section>
+
+<style>
+  .card {
+    border-radius: 1rem;
+  }
+</style>
+
+{% endblock %}

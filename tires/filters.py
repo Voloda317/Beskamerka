@@ -36,8 +36,13 @@ class TireFilter(django_filters.FilterSet):
         label='Сезон'
     )
 
+    THORNS_CHOICES = [
+        
+    ]
 
-    
+    brand = django_filters.MultipleChoiceFilter(
+        
+    )
 
 
     brand = django_filters.MultipleChoiceFilter(

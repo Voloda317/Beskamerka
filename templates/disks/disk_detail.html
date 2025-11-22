@@ -2,56 +2,147 @@
 {% block title %}{{ disk.name }}{% endblock %}
 
 {% block content %}
-<div class="container py-5">
-    <a href="javascript:history.back()" class="btn btn-outline-secondary mb-4">
-        ← Назад
+<div class="container disk-detail-container pt-4 pb-5">
+
+    <a href="javascript:history.back()" class="btn btn-outline-secondary mb-4 d-inline-flex align-items-center">
+        <i class="bi bi-arrow-left me-1"></i> Назад
     </a>
 
-    <div class="row align-items-center justify-content-center gy-4">
-        <!-- Фото диска -->
-        <div class="col-md-4 text-center">
-            <img src="{{ disk.img }}"
-                 class="img-fluid"
-                 alt="{{ disk.name }}"
-                 style="max-height: 380px; object-fit: contain;">
+    <div class="row gy-5">
+
+        <!-- Изображение -->
+        <div class="col-lg-5 text-center">
+            <div class="p-4 shadow-sm bg-white rounded-4">
+                <img src="{{ disk.img }}"
+                     alt="{{ disk.name }}"
+                     class="img-fluid mb-3"
+                     style="max-height: 260px; object-fit: contain;">
+
+                {% if disk.type == 'alloy' %}
+                    <span class="badge bg-dark px-3 py-2 rounded-pill">
+                        Литой диск
+                    </span>
+                {% elif disk.type == 'stamped' %}
+                    <span class="badge bg-secondary px-3 py-2 rounded-pill">
+                        Штампованный диск
+                    </span>
+                {% endif %}
+            </div>
         </div>
 
-        <!-- Основная информация -->
-        <div class="col-md-6 text-center">
-            <h1 class="h3 h-md-2 mb-2">{{ disk.name }}</h1>
-            <p class="text-muted mb-4">Артикул: {{ disk.art }}</p>
+        <!-- Описание и характеристики -->
+        <div class="col-lg-7">
 
-            <div class="mb-3">
-                <div class="h3 text-primary mb-1">{{ disk.price }} ₽</div>
-                <div class="{% if disk.quantity > 0 %}text-success{% else %}text-danger{% endif %}">
+            <!-- Основная информация -->
+            <div class="mb-4">
+                <h1 class="h3 fw-semibold mb-1">{{ disk.name }}</h1>
+                <div class="text-muted small mb-2">
+                    Артикул: {{ disk.article|default:"нет данных" }}
+                </div>
+
+                <!-- Размерность -->
+                <div class="fs-5 mb-3">
+                    <span class="fw-semibold">{{ disk.diameter }} R × {{ disk.width }}</span>
+                    {% if disk.bolt_pattern %}
+                        <span class="text-muted ms-1">
+                            {{ disk.bolt_pattern }}
+                        </span>
+                    {% endif %}
+                </div>
+
+                <!-- Цена и наличие -->
+                <div class="d-flex align-items-center mb-3">
+                    <div class="me-4">
+                        {% if disk.price %}
+                            <div class="fs-4 fw-bold text-primary">
+                                {{ disk.price }} ₽
+                            </div>
+                        {% else %}
+                            <div class="fs-5 text-muted">Уточняйте цену</div>
+                        {% endif %}
+                    </div>
+
                     {% if disk.quantity > 0 %}
-                        В наличии: {{ disk.quantity }} шт.
+                        <span class="badge bg-success-subtle text-success border border-success-subtle px-3 py-2">
+                            <i class="bi bi-check-circle me-1"></i> В наличии: {{ disk.quantity }} шт.
+                        </span>
                     {% else %}
-                        Нет в наличии
+                        <span class="badge bg-danger-subtle text-danger border border-danger-subtle px-3 py-2">
+                            <i class="bi bi-x-circle me-1"></i> Нет в наличии
+                        </span>
                     {% endif %}
                 </div>
             </div>
 
-            <div class="mb-4">
-                <h5>Характеристики:</h5>
-                <ul class="list-unstyled">
-                    <li><strong>Бренд:</strong> {{ disk.manufacturer }}</li>
-                    <li><strong>Модель:</strong> {{ disk.model }}</li>
-                    <li><strong>Диаметр:</strong> {{ disk.diameter }} R</li>
-                    <li><strong>Ширина:</strong> {{ disk.width }} мм</li>
-                    <li><strong>PCD:</strong> {{ disk.pcd }}</li>
-                    <li><strong>Количество болтов:</strong> {{ disk.bolts }}</li>
-                    <li><strong>ET:</strong> {{ disk.et }}</li>
-                    <li><strong>DIA:</strong> {{ disk.dia }}</li>
-                    <li><strong>Тип:</strong> {{ disk.disk_type }}</li>
-                </ul>
+            <!-- Характеристики -->
+            <div class="bg-light rounded-4 p-3 mb-4 shadow-sm">
+                <h5 class="fw-semibold mb-3">Характеристики</h5>
+
+                <div class="row g-3 small">
+                    <div class="col-6"><strong>Бренд:</strong> {{ disk.manufacturer }}</div>
+                    <div class="col-6"><strong>Модель:</strong> {{ disk.model }}</div>
+
+                    <div class="col-6"><strong>Диаметр:</strong> {{ disk.diameter }} R</div>
+                    <div class="col-6"><strong>Ширина:</strong> {{ disk.width }}</div>
+
+                    <div class="col-6"><strong>Тип диска:</strong>
+                        {% if disk.type == 'alloy' %}Литой{% elif disk.type == 'stamped' %}Штампованный{% else %}—{% endif %}
+                    </div>
+
+                    <div class="col-6">
+                        <strong>Сверловка (PCD):</strong>
+                        {{ disk.bolt_pattern|default:"—" }}
+                    </div>
+
+                    <div class="col-6">
+                        <strong>Вылет (ET):</strong>
+                        {{ disk.offset|default:"—" }}
+                    </div>
+
+                    <div class="col-6">
+                        <strong>Диаметр ступицы (DIA):</strong>
+                        {{ disk.center_bore|default:"—" }}
+                    </div>
+
+                    <div class="col-6">
+                        <strong>Цвет:</strong>
+                        {{ disk.color|default:"—" }}
+                    </div>
+
+                    <div class="col-6">
+                        <strong>Страна производства:</strong>
+                        {{ disk.country|default:"—" }}
+                    </div>
+                </div>
             </div>
 
-            <div class="d-flex justify-content-center gap-3 mt-3">
-                <button class="btn btn-primary btn-lg px-4">В корзину</button>
-                <button class="btn btn-outline-secondary btn-lg px-4">В избранное</button>
+            <!-- Описание -->
+            {% if disk.description %}
+            <div class="bg-white rounded-4 p-3 mb-4 shadow-sm">
+                <h5 class="fw-semibold mb-2">Описание</h5>
+                <p class="mb-0 small text-muted">{{ disk.description }}</p>
             </div>
+            {% endif %}
+
+            <!-- Блок покупки -->
+            <div class="d-flex flex-wrap align-items-center gap-3">
+                <button class="btn btn-primary btn-lg px-4 d-flex align-items-center">
+                    <i class="bi bi-cart-plus me-2"></i> В корзину
+                </button>
+
+                <button class="btn btn-outline-secondary btn-lg px-4 d-flex align-items-center">
+                    <i class="bi bi-heart me-2"></i> В избранное
+                </button>
+            </div>
+
         </div>
     </div>
 </div>
+
+<style>
+    .disk-detail-container { max-width: 1150px; }
+    .rounded-4 { border-radius: 18px !important; }
+    .btn-lg { border-radius: 12px; }
+</style>
+
 {% endblock %}

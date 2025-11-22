@@ -37,7 +37,7 @@
 <nav class="py-3" aria-label="breadcrumb">
   <div class="container">
     <ol class="breadcrumb mb-0 small">
-      <li class="breadcrumb-item"><a href="/">Главная</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'homepage:home' %}">Главная</a></li>
       <li class="breadcrumb-item"><a href="{% url 'services:services' %}">Услуги</a></li>
       <li class="breadcrumb-item active" aria-current="page">Балансировка колёс</li>
     </ol>
@@ -52,17 +52,14 @@
       <aside class="col-lg-3">
         <div class="list-group list-group-flush shadow-sm rounded-3 overflow-hidden">
           <a class="list-group-item list-group-item-action" href="{% url 'services:tire_services' %}">Шиномонтаж</a>
-          <a class="list-group-item list-group-item-action active" aria-current="true" href="#">
+          <a class="list-group-item list-group-item-action active" aria-current="true" href="{% url 'services:balancing' %}">
             Балансировка колёс
           </a>
-          <a class="list-group-item list-group-item-action" href="#">Правка дисков</a>
-          <a class="list-group-item list-group-item-action" href="#">Ремонт резины</a>
-          <a class="list-group-item list-group-item-action" href="#">Сезонное хранение</a>
+          <a class="list-group-item list-group-item-action" href="{% url 'services:pravka' %}">Правка дисков</a>
+          <a class="list-group-item list-group-item-action" href="{% url 'services:remont' %}">Ремонт резины</a>
+          <a class="list-group-item list-group-item-action" href="{% url 'services:keeping_tires' %}">Сезонное хранение</a>
           <a class="list-group-item list-group-item-action" href="#">Прайс-лист на услуги</a>
         </div>
-
-        <!-- Блок вопроса -->
-
       </aside>
 
       <!-- Текст -->

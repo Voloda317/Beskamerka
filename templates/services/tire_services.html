@@ -6,76 +6,124 @@
 {% block content %}
 
 <!-- HERO -->
-<section class="position-relative">
-  <!-- Фон-фото -->
-  <img src="{% static 'img/services/tires-hero.jpg' %}"
-       class="w-100 object-fit-cover"
-       style="height: 420px;"
-       alt="Шиномонтаж">
+<section class="position-relative overflow-hidden">
+  <!-- фоновая картинка -->
+  <div class="w-100" style="
+      background: url('{% static 'img/services/tires-hero.jpg' %}') center/cover no-repeat;
+      height: 360px;">
+  </div>
 
-  <!-- Тёмная подложка для читаемости текста -->
+  <!-- полупрозрачный градиент для читаемости -->
   <div class="position-absolute top-0 start-0 w-100 h-100"
-       style="background: rgba(0,0,0,.35);"></div>
+       style="background: linear-gradient(90deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,0) 100%);"></div>
 
-  <!-- Текст поверх фото -->
+  <!-- контент поверх -->
   <div class="position-absolute top-50 start-50 translate-middle w-100">
-    <div class="container text-white">
-      <div class="col-12 col-lg-7">
-        <h1 class="display-6 fw-bold mb-2">Шиномонтаж</h1>
-        <p class="lead mb-4">
-          Шиномонтаж любой сложности. Комплект R15 от 700&nbsp;₽
-        </p>
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-lg-6 text-white">
+          <h1 class="display-6 fw-semibold mb-2">Шиномонтаж</h1>
+          <p class="lead mb-4">
+            Профессиональный шиномонтаж для любых типов автомобилей. Сезонная смена резины, правка,
+            ремонт и балансировка — всё в одном месте.
+          </p>
+        </div>
+
       </div>
     </div>
   </div>
 </section>
 
-<!-- Хлебные крошки -->
+<!-- ХЛЕБНЫЕ КРОШКИ -->
 <nav class="py-3" aria-label="breadcrumb">
   <div class="container">
-    <ol class="breadcrumb mb-0">
-      <li class="breadcrumb-item"><a href="/">Главная</a></li>
+    <ol class="breadcrumb mb-0 small">
+      <li class="breadcrumb-item"><a href="{% url 'homepage:home' %}">Главная</a></li>
       <li class="breadcrumb-item"><a href="{% url 'services:services' %}">Услуги</a></li>
       <li class="breadcrumb-item active" aria-current="page">Шиномонтаж</li>
     </ol>
   </div>
 </nav>
 
-<!-- Контент -->
-<section class="py-4">
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<section class="pb-5">
   <div class="container">
-    <h2 class="h3 mb-4">Шиномонтаж</h2>
+    <div class="row g-4">
+      <!-- Левое меню -->
+      <aside class="col-lg-3">
+        <div class="list-group list-group-flush shadow-sm rounded-3 overflow-hidden">
+          <a class="list-group-item list-group-item-action active" aria-current="true"
+             href="{% url 'services:tire_services' %}">
+            Шиномонтаж
+          </a>
+          <a class="list-group-item list-group-item-action"
+             href="{% url 'services:balancing' %}">Балансировка колёс</a>
+          <a class="list-group-item list-group-item-action"
+             href="{% url 'services:pravka' %}">Правка дисков</a>
+          <a class="list-group-item list-group-item-action"
+             href="{% url 'services:remont' %}">Ремонт резины</a>
+          <a class="list-group-item list-group-item-action"
+             href="{% url 'services:keeping_tires' %}">Сезонное хранение</a>
+          <a class="list-group-item list-group-item-action" href="#">Прайс-лист на услуги</a>
+        </div>
+      </aside>
 
-    <p>
-      Каждый автомобилист знает, насколько важным элементом его автомобиля являются правильно подобранные шины.
-      Для обеспечения безопасности на дороге и комфорта управления автомобилем необходимо правильно провести шиномонтаж.
-      Доверив этот вопрос профессионалам, вы сэкономите время и получите гарантию качества.
-    </p>
-    <p>
-      Мы выполняем шиномонтаж на современном оборудовании, а опыт наших сотрудников позволяет обеспечить быстрое
-      и аккуратное выполнение работ, включая замену изношенной или сезонной резины.
-    </p>
+      <!-- Текст -->
+      <article class="col-lg-9">
+        <h2 class="h3 mb-3">Шиномонтаж</h2>
 
-    <h3 class="h5 mt-4">В услугу может входить:</h3>
-    <ul class="list-unstyled small mb-4">
-      <li class="mb-1">— снятие колеса</li>
-      <li class="mb-1">— демонтаж покрышки</li>
-      <li class="mb-1">— правка колесного диска</li>
-      <li class="mb-1">— балансировка</li>
-      <li class="mb-1">— мойка</li>
-      <li class="mb-1">— установка новой покрышки</li>
-      <li class="mb-1">— установка колеса</li>
-    </ul>
+        <p>
+          Каждый автовладелец знает, что правильно подобранные и установленные шины напрямую влияют на
+          безопасность движения и комфорт вождения. Непрофессиональный шиномонтаж может привести к
+          неравномерному износу, ухудшению управляемости и увеличению тормозного пути.
+        </p>
 
-    <p>
-      Проводим работы с любыми типами шин, камерными и бескамерными, устраняем проколы и порезы, выполняем замену
-      зимней и летней резины. Можно записаться по телефону, а также оставить онлайн-заявку.
-    </p>
+        <p>
+          Мы выполняем полный комплекс работ по шиномонтажу на современном оборудовании:
+        </p>
 
-    
+        <ul class="small mb-4">
+          <li class="mb-1">— Снятие и установка колёс на автомобиль.</li>
+          <li class="mb-1">— Монтаж и демонтаж шин на диск (включая низкопрофильные и RunFlat).</li>
+          <li class="mb-1">— Замена камерных и бескамерных шин.</li>
+          <li class="mb-1">— Устранение проколов и мелких порезов.</li>
+          <li class="mb-1">— Контроль состояния диска и резины, рекомендации по ремонту или замене.</li>
+        </ul>
 
+        <p>
+          Мы аккуратно работаем с литым, кованым и штампованным диском, соблюдаем требования
+          производителей и используем профессиональные монтажные пасты и расходные материалы.
+        </p>
 
+        <h3 class="h5 mt-4 mb-2">Когда стоит приехать к нам</h3>
+        <ul class="small mb-4">
+          <li class="mb-1">— Сезонная смена летней/зимней резины.</li>
+          <li class="mb-1">— Появление вибраций или стуков при движении.</li>
+          <li class="mb-1">— Видимый износ протектора, «лестница», пятна износа.</li>
+          <li class="mb-1">— Прокол или небольшие повреждения протектора.</li>
+        </ul>
+
+        <p>
+          Мы ценим ваше время — работы по типовой сезонной переобувке выполняются быстро, при этом на
+          каждую операцию распространяется гарантия качества.
+        </p>
+      </article>
+    </div>
   </div>
 </section>
+
+<!-- ЛЁГКИЕ СТИЛИ СТРАНИЦЫ -->
+<style>
+.list-group-item.active{
+  background-color:#0d6efd;
+  border-color:#0d6efd;
+}
+
+.list-group-item,
+.btn,
+.border { transition: all .2s ease; }
+
+.list-group { box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+</style>
 
 {% endblock %}

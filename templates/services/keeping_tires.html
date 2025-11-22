@@ -1,61 +1,124 @@
 {% extends "base.html" %}
 {% load static %}
 
+{% block title %}Сезонное хранение шин — услуги сервиса{% endblock %}
+
 {% block content %}
 
-<!-- Верхний баннер -->
-<div class="position-relative">
-    <img src="{% static 'img/services/keeping_tires.jpg' %}" class="img-fluid w-100" alt="Сезонное хранение">
-    <div class="position-absolute top-50 start-0 translate-middle-y ms-5 text-white">
-        <h1 class="fw-bold display-4">Сезонное хранение</h1>
-        <p class="fs-5">Качественное, удобное и надежное хранение.<br>Быстрая и удобная выдача колес!</p>
+<!-- HERO -->
+<section class="position-relative overflow-hidden">
+  <!-- фоновая картинка -->
+  <div class="w-100" style="
+      background: url('{% static 'img/services/keeping_tires.jpg' %}') center/cover no-repeat;
+      height: 360px;">
+  </div>
 
+  <!-- полупрозрачный градиент -->
+  <div class="position-absolute top-0 start-0 w-100 h-100"
+       style="background: linear-gradient(90deg, rgba(0,0,0,.75) 0%, rgba(0,0,0,.35) 55%, rgba(0,0,0,0) 100%);"></div>
 
+  <!-- контент поверх -->
+  <div class="position-absolute top-50 start-50 translate-middle w-100">
+    <div class="container">
+      <div class="row align-items-center">
+        <div class="col-12 col-lg-6 text-white">
+          <h1 class="display-6 fw-semibold mb-2">Сезонное хранение шин</h1>
+          <p class="lead mb-4">
+            Сохраним ваш комплект шин в правильных условиях — сухое, тёмное помещение, контроль температуры
+            и удобная выдача по записи.
+          </p>
+        </div>
+
+      </div>
     </div>
-</div>
+  </div>
+</section>
 
-<!-- Контент -->
-<div class="container mt-5">
+<!-- ХЛЕБНЫЕ КРОШКИ -->
+<nav class="py-3" aria-label="breadcrumb">
+  <div class="container">
+    <ol class="breadcrumb mb-0 small">
+      <li class="breadcrumb-item"><a href="{% url 'homepage:home' %}">Главная</a></li>
+      <li class="breadcrumb-item"><a href="{% url 'services:services' %}">Услуги</a></li>
+      <li class="breadcrumb-item active" aria-current="page">Сезонное хранение</li>
+    </ol>
+  </div>
+</nav>
 
-    <!-- Хлебные крошки -->
-    <nav aria-label="breadcrumb">
-        <ol class="breadcrumb">
-            <li class="breadcrumb-item"><a href="/">Главная</a></li>
-            <li class="breadcrumb-item"><a href="/services/">Услуги</a></li>
-            <li class="breadcrumb-item active" aria-current="page">Сезонное хранение</li>
-        </ol>
-    </nav>
+<!-- ОСНОВНОЙ КОНТЕНТ -->
+<section class="pb-5">
+  <div class="container">
+    <div class="row g-4">
+      <!-- Левое меню -->
+      <aside class="col-lg-3">
+        <div class="list-group list-group-flush shadow-sm rounded-3 overflow-hidden">
+          <a class="list-group-item list-group-item-action"
+             href="{% url 'services:tire_services' %}">Шиномонтаж</a>
+          <a class="list-group-item list-group-item-action"
+             href="{% url 'services:balancing' %}">Балансировка колёс</a>
+          <a class="list-group-item list-group-item-action"
+             href="{% url 'services:pravka' %}">Правка дисков</a>
+          <a class="list-group-item list-group-item-action"
+             href="{% url 'services:remont' %}">Ремонт резины</a>
+          <a class="list-group-item list-group-item-action active" aria-current="true"
+             href="{% url 'services:keeping_tires' %}">
+            Сезонное хранение
+          </a>
+          <a class="list-group-item list-group-item-action" href="#">Прайс-лист на услуги</a>
+        </div>
+      </aside>
 
-    <!-- Заголовок -->
-    <h2 class="fw-bold mb-4">Сезонное хранение</h2>
+      <!-- Текст -->
+      <article class="col-lg-9">
+        <h2 class="h3 mb-3">Сезонное хранение шин</h2>
 
-    <!-- Текст контента -->
-    <div class="content">
         <p>
-            Смена сезона всегда требует особой подготовки от автомобилистов, и, пожалуй, самым важным является смена автомобильных покрышек. 
-            А это значит, что необходимо иметь как минимум два комплекта резины. Отсюда проблема – где хранить «сменную обувь» для вашего авто? 
-            Давайте рассмотрим варианты.
-        </p>
-
-        <p><strong>Хранить в кладовой/на балконе.</strong> Самый распространенный вариант, однако, кому понравится превращать свой дом в подобие автомастерской 
-            и захламлять помещение колесами? Согласитесь, не лучший вариант.
-        </p>
-
-        <p><strong>Хранить в гараже или на складе.</strong> Это гораздо лучше, но ведь далеко не все имеют такую возможность. Счастливые обладатели гаража 
-            могут себе позволить не озадачиваться вопросом хранения комплекта дополнительной резины для своего авто, но что делать остальным?
-        </p>
-
-        <p><strong>Доверить хранение покрышек профессионалам.</strong> Компания «Тайрес» с удовольствием возьмет на себя решение вопроса. Ваши шины будут храниться
-            в помещении со специально подобранными условиями, чтобы сохранить первоначальные свойства резины. Наши специалисты самостоятельно произведут 
-            замену шин на вашем автомобиле, после чего проведут осмотр и зарегистрируют их в базе. Это гарантирует вам удобство и быструю выдачу, как только 
-            вы решите забрать шины со склада.
+          Хранение шин в гараже, на балконе или в подвале часто приводит к трещинам, деформации и ускоренному
+          старению резины. Перепады температур, влажность и солнечный свет сильно сокращают срок службы комплекта.
         </p>
 
         <p>
-            Мы составляем договор, в котором обозначены гарантийные условия хранения и сроки (до 6 месяцев). Вы можете забрать шины в любой момент, 
-            а также при сезонной смене резины мы продлим договор до возмещения сменный комплект.
+          Мы предлагаем услугу сезонного хранения шин в специально оборудованном помещении. Соблюдаем
+          рекомендации производителей по температуре, влажности и способу складирования.
         </p>
+
+        <h3 class="h5 mt-4 mb-2">Как всё устроено</h3>
+        <ul class="small mb-4">
+          <li class="mb-1">— Принимаем комплект шин или колёс в сборе, осматриваем и фиксируем состояние.</li>
+          <li class="mb-1">— Каждому комплекту присваиваем номер, маркируем и заносим в базу.</li>
+          <li class="mb-1">— Храним на стеллажах в закрытом помещении с контролируемыми условиями.</li>
+          <li class="mb-1">— По предварительной записи подготавливаем комплект к выдаче или установке.</li>
+        </ul>
+
+        <h3 class="h5 mt-4 mb-2">Преимущества профессионального хранения</h3>
+        <ul class="small mb-4">
+          <li class="mb-1">— Экономия места дома или в гараже.</li>
+          <li class="mb-1">— Сохранение эластичности резины и рисунка протектора.</li>
+          <li class="mb-1">— Отсутствие лишних нагрузок на боковины и корд.</li>
+          <li class="mb-1">— Удобство: привезли колёса один раз — забрали уже на установленном автомобиле.</li>
+        </ul>
+
+        <p>
+          На каждый комплект оформляется договор хранения с указанием сроков и условий.
+          Вы можете забрать шины досрочно или продлить хранение на следующий сезон.
+        </p>
+      </article>
     </div>
-</div>
+  </div>
+</section>
+
+<!-- ЛЁГКИЕ СТИЛИ СТРАНИЦЫ -->
+<style>
+.list-group-item.active{
+  background-color:#0d6efd;
+  border-color:#0d6efd;
+}
+
+.list-group-item,
+.btn,
+.border { transition: all .2s ease; }
+
+.list-group { box-shadow: 0 4px 16px rgba(0,0,0,.06); }
+</style>
 
 {% endblock %}
