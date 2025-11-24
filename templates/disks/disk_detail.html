@@ -37,18 +37,10 @@
             <div class="mb-4">
                 <h1 class="h3 fw-semibold mb-1">{{ disk.name }}</h1>
                 <div class="text-muted small mb-2">
-                    Артикул: {{ disk.article|default:"нет данных" }}
+                    Артикул: {{ disk.art|default:"нет данных" }}
                 </div>
 
-                <!-- Размерность -->
-                <div class="fs-5 mb-3">
-                    <span class="fw-semibold">{{ disk.diameter }} R × {{ disk.width }}</span>
-                    {% if disk.bolt_pattern %}
-                        <span class="text-muted ms-1">
-                            {{ disk.bolt_pattern }}
-                        </span>
-                    {% endif %}
-                </div>
+
 
                 <!-- Цена и наличие -->
                 <div class="d-flex align-items-center mb-3">
@@ -86,33 +78,24 @@
                     <div class="col-6"><strong>Ширина:</strong> {{ disk.width }}</div>
 
                     <div class="col-6"><strong>Тип диска:</strong>
-                        {% if disk.type == 'alloy' %}Литой{% elif disk.type == 'stamped' %}Штампованный{% else %}—{% endif %}
+                        {% if disk.disk_type == 'Литой' %}Литой{% elif disk.disk_type == 'Штампованные' %}Штампованный{% else %}—{% endif %}
                     </div>
 
                     <div class="col-6">
                         <strong>Сверловка (PCD):</strong>
-                        {{ disk.bolt_pattern|default:"—" }}
+                        {{ disk.pcd|default:"—" }}
                     </div>
 
                     <div class="col-6">
                         <strong>Вылет (ET):</strong>
-                        {{ disk.offset|default:"—" }}
+                        {{ disk.et|default:"—" }}
                     </div>
 
                     <div class="col-6">
                         <strong>Диаметр ступицы (DIA):</strong>
-                        {{ disk.center_bore|default:"—" }}
+                        {{ disk.dia|default:"—" }}
                     </div>
 
-                    <div class="col-6">
-                        <strong>Цвет:</strong>
-                        {{ disk.color|default:"—" }}
-                    </div>
-
-                    <div class="col-6">
-                        <strong>Страна производства:</strong>
-                        {{ disk.country|default:"—" }}
-                    </div>
                 </div>
             </div>
 
@@ -130,9 +113,7 @@
                     <i class="bi bi-cart-plus me-2"></i> В корзину
                 </button>
 
-                <button class="btn btn-outline-secondary btn-lg px-4 d-flex align-items-center">
-                    <i class="bi bi-heart me-2"></i> В избранное
-                </button>
+
             </div>
 
         </div>

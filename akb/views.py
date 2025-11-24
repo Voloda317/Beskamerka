@@ -1,4 +1,4 @@
-from django.views.generic import ListView
+from django.views.generic import ListView, DetailView
 from .filters import AkbFilter
 from .models import Akb
 
@@ -19,3 +19,9 @@ class AkbListView(ListView):
         context['filter'] = self.filterset
         context['request'] = self.request
         return context
+
+
+class AkbDetailView(DetailView):
+    model = Akb
+    template_name = 'akb/akb_detail.html'  # убедись, что шаблон лежит по этому пути
+    context_object_name = 'akb'

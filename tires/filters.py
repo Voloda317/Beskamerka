@@ -37,11 +37,15 @@ class TireFilter(django_filters.FilterSet):
     )
 
     THORNS_CHOICES = [
-        
+        ('True', 'Да'),
+        ('False', 'Нет'),
     ]
 
-    brand = django_filters.MultipleChoiceFilter(
-        
+    thorns = django_filters.MultipleChoiceFilter(
+        field_name= 'thorns',
+        choices=THORNS_CHOICES,
+        widget=forms.CheckboxSelectMultiple,
+        label='Шипы'
     )
 
 

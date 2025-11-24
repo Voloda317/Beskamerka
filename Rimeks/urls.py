@@ -24,7 +24,6 @@ urlpatterns = [
     path('', include('homepage.urls')),
     path('tires/', include('tires.urls')), # 2 шаг
     path('disks/', include('disks.urls')),
-    path('users/', include('users.urls')),
     path('akb/', include('akb.urls')),
     path('sale/', include('sale.urls')),
     path('services/', include('services.urls')),

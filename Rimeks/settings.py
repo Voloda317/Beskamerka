@@ -42,12 +42,12 @@ INSTALLED_APPS = [
     'homepage',
     'disks',
     'debug_toolbar',
-    'users',
     'django_filters',
     'akb',
     'sale',
     'services',
     'contact',
+    'basket',
 ]
 
 MIDDLEWARE = [

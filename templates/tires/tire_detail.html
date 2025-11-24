@@ -97,22 +97,22 @@
                     <div class="col-6"><strong>Модель:</strong> {{ tire.model }}</div>
 
                     <div class="col-6"><strong>Ширина:</strong> {{ tire.width }}</div>
-                    <div class="col-6"><strong>Профиль:</strong> {{ tire.height }}</div>
+                     <div class="col-6">
+                        <strong>Шипы:</strong>
+                        {% if tire.thorns == True %} Шипы {% elif tire.thorns == False %} Без шипов {% else %} — {% endif %}
+                    </div>
 
-                    <div class="col-6"><strong>Диаметр:</strong> {{ tire.radius }} R</div>
+                    <div class="col-6"><strong>Высота:</strong> {{ tire.height }}</div>
+
                     <div class="col-6">
                         <strong>Сезонность:</strong>
                         {% if tire.season == 'Лето' %}Летние{% elif tire.season == 'Зима' %}Зимние{% else %}—{% endif %}
                     </div>
 
-                    <div class="col-6">
-                        <strong>Шипы:</strong>
-                        {% if tire.studded %}
-                            Есть
-                        {% else %}
-                            Нет
-                        {% endif %}
-                    </div>
+
+                    <div class="col-6"><strong>Диаметр:</strong> {{ tire.radius }} R</div>
+
+                   
 
                     <div class="col-6">
                         <strong>Индекс нагрузки:</strong>
@@ -127,22 +127,11 @@
                 </div>
             </div>
 
-            <!-- Описание -->
-            {% if tire.description %}
-            <div class="bg-white rounded-4 p-3 mb-4 shadow-sm">
-                <h5 class="fw-semibold mb-2">Описание</h5>
-                <p class="mb-0 small text-muted">{{ tire.description }}</p>
-            </div>
-            {% endif %}
 
             <!-- Блок покупки -->
             <div class="d-flex flex-wrap align-items-center gap-3">
                 <button class="btn btn-primary btn-lg px-4 d-flex align-items-center">
                     <i class="bi bi-cart-plus me-2"></i> В корзину
-                </button>
-
-                <button class="btn btn-outline-secondary btn-lg px-4 d-flex align-items-center">
-                    <i class="bi bi-heart me-2"></i> В избранное
                 </button>
             </div>
 
