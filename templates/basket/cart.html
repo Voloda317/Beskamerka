@@ -1,0 +1,82 @@
+{% extends "base.html" %}
+
+{% block title %}Корзина{% endblock %}
+
+{% block content %}
+<div class="bg-light py-4">
+  <div class="container">
+    <h2 class="mb-4">Корзина</h2>
+
+    {% if items %}
+      <div class="table-responsive">
+        <table class="table align-middle">
+          <thead>
+            <tr>
+              <th>Товар</th>
+              <th>Тип</th>
+              <th>Цена</th>
+              <th style="width: 150px;">Кол-во</th>
+              <th>Сумма</th>
+              <th></th>
+            </tr>
+          </thead>
+          <tbody>
+            {% for item in items %}
+              {% with product=item.product %}
+              <tr>
+                <td>
+                  {% if product %}
+                    <div class="d-flex align-items-center">
+                      {% if product.image_url or product.img %}
+                        <img src="{{ product.image_url|default:product.img }}" alt="" class="me-2" style="width:60px; height:60px; object-fit:cover;">
+                      {% endif %}
+                      <div>
+                        <div class="fw-semibold">
+                          {{ product.name|default:product.model }}
+                        </div>
+                        <div class="text-muted small">
+                          Арт: {{ product.art|default:"—" }}
+                        </div>
+                      </div>
+                    </div>
+                  {% else %}
+                    <span class="text-muted">Товар больше недоступен</span>
+                  {% endif %}
+                </td>
+                <td>
+                  {% if item.product_type == "tire" %}Шина{% elif item.product_type == "disk" %}Диск{% else %}Аккумулятор{% endif %}
+                </td>
+                <td>{{ item.price }} ₽</td>
+                <td>
+                  <form method="post" action="{% url 'basket:change_quantity' item.id %}" class="d-flex">
+                    {% csrf_token %}
+                    <input type="number" name="quantity" min="0" value="{{ item.quantity }}" class="form-control form-control-sm me-2">
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button class="btn btn-sm btn-outline-primary" type="submit">OK</button>
+                  </form>
+                </td>
+                <td>{{ item.total_price }} ₽</td>
+                <td>
+                  <form method="post" action="{% url 'basket:remove_from_cart' item.id %}">
+                    {% csrf_token %}
+                    <input type="hidden" name="next" value="{{ request.path }}">
+                    <button class="btn btn-sm btn-outline-danger" type="submit">×</button>
+                  </form>
+                </td>
+              </tr>
+              {% endwith %}
+            {% endfor %}
+          </tbody>
+        </table>
+      </div>
+
+      <div class="d-flex justify-content-end mt-3">
+        <h4>Итого: {{ cart.total_price }} ₽</h4>
+      </div>
+
+    {% else %}
+      <p>Ваша корзина пуста.</p>
+    {% endif %}
+  </div>
+</div>
+{% endblock %}
