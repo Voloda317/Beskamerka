@@ -1,0 +1,43 @@
+{% extends "base.html" %}
+
+{% block title %}Заказ оформлен{% endblock %}
+
+{% block content %}
+<div class="order-section d-flex align-items-center">
+  <div class="container">
+    <div class="row justify-content-center">
+      <div class="col-md-8 col-lg-6">
+        <div class="card shadow-sm border-0">
+          <div class="card-body p-4 text-center">
+            <h3 class="mb-3">Спасибо за заказ!</h3>
+            <p class="mb-3">
+              Ваш товар куплен. Забрать и оплатить вы его можете по адресу:
+            </p>
+            <p class="fw-semibold mb-4">
+              Россия, учебный проект, магазин «RIMEKS».
+            </p>
+
+            <a href="{% url 'homepage:home' %}" class="btn btn-primary me-2">
+              На главную
+            </a>
+
+            <a href="{% url 'homepage:home' %}" class="btn btn-outline-secondary">
+              Продолжить покупки
+            </a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<style>
+  .order-section {
+      min-height: 80vh; /* растягиваем всю секцию вниз */
+      padding-top: 40px;
+      padding-bottom: 40px;
+      background-color: #f8f9fa;
+  }
+</style>
+
+{% endblock %}

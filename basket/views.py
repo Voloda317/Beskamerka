@@ -9,13 +9,25 @@ from .models import CartItem
 from .utils import get_cart
 
 
+def _get_product_model(product_type: str):
+    """Возвращаем модель по типу товара."""
+    return {
+        "tire": Tire,
+        "disk": Disk,
+        "akb": Akb,
+    }.get(product_type)
+
+
 def cart_detail(request):
     """Страница корзины."""
     cart = get_cart(request)
-    items = cart.items.select_related()  # CartItem
+    items = cart.items.all()
+    total_price = sum(item.total_price for item in items)
+
     context = {
         "cart": cart,
         "items": items,
+        "total_price": total_price,
     }
     return render(request, "basket/cart.html", context)
 
@@ -23,58 +35,65 @@ def cart_detail(request):
 @require_POST
 def add_to_cart(request, product_type, pk):
     """
-    Добавить товар в корзину.
+    Добавление товара в корзину.
     product_type: 'tire' | 'disk' | 'akb'
-    pk: id товара
+    pk: ID товара в соответствующей таблице.
     """
     cart = get_cart(request)
+    model = _get_product_model(product_type)
 
-    model_map = {
-        "tire": Tire,
-        "disk": Disk,
-        "akb": Akb,
-    }
-    model = model_map.get(product_type)
-    if not model:
-        return redirect("homepage:home")  # на всякий случай
+    if model is None:
+        return redirect("basket:cart_detail")
 
     product = get_object_or_404(model, pk=pk)
 
-    # пробуем найти уже существующую позицию
+    # количество из формы (по умолчанию 1)
+    try:
+        quantity = int(request.POST.get("quantity", "1"))
+    except ValueError:
+        quantity = 1
+    if quantity < 1:
+        quantity = 1
+
     item, created = CartItem.objects.get_or_create(
         cart=cart,
         product_type=product_type,
-        product_id=product.id,
-        defaults={"quantity": 1, "price": product.price},
+        product_id=product.pk,
+        defaults={"price": getattr(product, "price", 0)},
     )
-    if not created:
-        item.quantity += 1
-        item.save()
 
-    # можно вернуть на страницу, с которой пришли
-    next_url = request.POST.get("next") or request.META.get("HTTP_REFERER") or "/"
-    return redirect(next_url)
+    if created:
+        item.quantity = quantity
+    else:
+        item.quantity += quantity
+        # обновляем цену, если она вдруг изменилась
+        item.price = getattr(product, "price", item.price)
+    item.save()
+
+    # куда редиректить после добавления
+    next_url = request.POST.get("next") or request.META.get("HTTP_REFERER")
+    if next_url:
+        return redirect(next_url)
+    return redirect("basket:cart_detail")
 
 
 @require_POST
 def remove_from_cart(request, item_id):
     """Удалить позицию из корзины."""
     cart = get_cart(request)
-    item = get_object_or_404(CartItem, id=item_id, cart=cart)
-    item.delete()
-    next_url = request.POST.get("next") or request.META.get("HTTP_REFERER") or "/basket/"
-    return redirect(next_url)
+    CartItem.objects.filter(id=item_id, cart=cart).delete()
+    return redirect("basket:cart_detail")
 
 
 @require_POST
 def change_quantity(request, item_id):
-    """Изменить количество позиции в корзине."""
+    """Изменение количества позиции в корзине."""
     cart = get_cart(request)
     item = get_object_or_404(CartItem, id=item_id, cart=cart)
 
     try:
-        quantity = int(request.POST.get("quantity", 1))
-    except (TypeError, ValueError):
+        quantity = int(request.POST.get("quantity", "1"))
+    except ValueError:
         quantity = 1
 
     if quantity <= 0:
@@ -83,5 +102,21 @@ def change_quantity(request, item_id):
         item.quantity = quantity
         item.save()
 
-    next_url = request.POST.get("next") or request.META.get("HTTP_REFERER") or "/basket/"
-    return redirect(next_url)
+    return redirect("basket:cart_detail")
+
+
+@require_POST
+def checkout(request):
+    """
+    Оформление заказа: очищаем корзину и показываем страницу с сообщением.
+    """
+    cart = get_cart(request)
+
+    # если корзина пустая — просто вернём на страницу корзины
+    if not cart.items.exists():
+        return redirect("basket:cart_detail")
+
+    # тут можно было бы создать сущность "Заказ", но пока просто чистим корзину
+    cart.items.all().delete()
+
+    return render(request, "basket/order_success.html")
