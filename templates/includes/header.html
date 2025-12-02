@@ -4,20 +4,34 @@
   <div class="container">
     <div class="d-flex flex-wrap justify-content-between align-items-center">
 
+      <!-- ЛОГО -->
       <div class="header_logo mb-2 mb-md-0">
-        <a href="/">
+        <a href="{% url 'homepage:home' %}">
           <img src="{% static 'img/logo.png' %}" class="img-fluid" style="max-height: 50px;" alt="Логотип">
         </a>
       </div>
 
+      <!-- НАВИГАЦИЯ (десктоп) -->
       <nav class="d-none d-md-block">
         <ul class="nav align-items-center fw-medium">
 
-          <li class="nav-item"><a class="nav-link" href="{% url 'tires:tires' %}">Шины</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'disks:disks' %}">Диски</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'akb:akb' %}">АКБ</a></li>
-          <li class="nav-item"><a class="nav-link" href="{% url 'sale:sale' %}">Акции</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'tires:tires' %}">Шины</a>
+          </li>
 
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'disks:disks' %}">Диски</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'akb:akb' %}">АКБ</a>
+          </li>
+
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'sale:sale' %}">Акции</a>
+          </li>
+
+          <!-- Услуги с выпадающим меню -->
           <li class="nav-item dropdown position-relative">
             <a class="nav-link dropdown-toggle"
                href="{% url 'services:services' %}"
@@ -32,38 +46,87 @@
                   Шиномонтаж
                 </a>
               </li>
-              <li class="mb-2"><a class="btn btn-outline-primary service-btn" href="{% url 'services:balancing' %}">Балансировка колёс</a></li>
-              <li class="mb-2"><a class="btn btn-outline-primary service-btn" href="{% url 'services:pravka' %}">Правка дисков</a></li>
-              <li class="mb-2"><a class="btn btn-outline-primary service-btn" href="{% url 'services:remont'%}">Ремонт резины</a></li>
-              <li class="mb-2"><a class="btn btn-outline-primary service-btn" href="{% url 'services:keeping_tires' %}">Сезонное хранение</a></li>
-              <li class="mb-2"><a class="btn btn-outline-primary service-btn" href="#">Прайс на услуги</a></li>
+              <li class="mb-2">
+                <a class="btn btn-outline-primary service-btn" href="{% url 'services:balancing' %}">
+                  Балансировка колёс
+                </a>
+              </li>
+              <li class="mb-2">
+                <a class="btn btn-outline-primary service-btn" href="{% url 'services:pravka' %}">
+                  Правка дисков
+                </a>
+              </li>
+              <li class="mb-2">
+                <a class="btn btn-outline-primary service-btn" href="{% url 'services:remont' %}">
+                  Ремонт резины
+                </a>
+              </li>
+              <li class="mb-2">
+                <a class="btn btn-outline-primary service-btn" href="{% url 'services:keeping_tires' %}">
+                  Сезонное хранение
+                </a>
+              </li>
+              <li class="mb-2">
+                <a class="btn btn-outline-primary service-btn" href="#">
+                  Прайс на услуги
+                </a>
+              </li>
             </ul>
           </li>
 
-          <li class="nav-item"><a class="nav-link" href="{% url 'contact:contact' %}">Контакты</a></li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'contact:contact' %}">Контакты</a>
+          </li>
         </ul>
       </nav>
 
-<form class="d-flex my-2 my-lg-0 me-lg-2"
-      role="search"
-      action="{% url 'homepage:search' %}"
-      method="get">
-  <input class="form-control me-2"
-         type="search"
-         name="q"
-         placeholder="Поиск товаров"
-         value="{{ request.GET.q }}"
-         aria-label="Поиск">
-  <button class="btn btn-outline-primary" type="submit">
-    <i class="bi bi-search"></i>
-  </button>
-</form>
+      <!-- ПОИСК -->
+      <form class="d-flex my-2 my-lg-0 me-lg-2 flex-grow-1 flex-md-grow-0 order-3 order-md-2"
+            role="search"
+            action="{% url 'homepage:search' %}"
+            method="get">
+        <input class="form-control me-2"
+               type="search"
+               name="q"
+               placeholder="Поиск товаров"
+               value="{{ request.GET.q }}"
+               aria-label="Поиск">
+        <button class="btn btn-outline-primary" type="submit">
+          <i class="bi bi-search"></i>
+        </button>
+      </form>
 
+      <!-- ПРАВАЯ ЧАСТЬ: ПРОФИЛЬ / ВХОД / РЕГИСТРАЦИЯ / КОРЗИНА -->
+      <div class="d-flex align-items-center order-2 order-md-3 mt-2 mt-md-0">
 
-      <div class="d-flex align-items-center">
-        <a href="#" class="btn btn-outline-secondary me-2 d-none d-md-block">
-          <i class="bi bi-person"></i> Войти
-        </a>
+        {% if user.is_authenticated %}
+          <span class="me-2 d-none d-md-inline text-muted small">
+            <i class="bi bi-person-circle"></i>
+            {{ user.username }}
+          </span>
+
+          <a href="{% url 'accounts:password_change' %}"
+             class="btn btn-outline-secondary btn-sm me-2 d-none d-md-block">
+            Сменить пароль
+          </a>
+
+          <a href="{% url 'accounts:logout' %}"
+             class="btn btn-outline-danger btn-sm me-2 d-none d-md-block">
+            Выйти
+          </a>
+        {% else %}
+          <a href="{% url 'accounts:login' %}"
+             class="btn btn-outline-secondary btn-sm me-2 d-none d-md-block">
+            <i class="bi bi-person"></i> Войти
+          </a>
+
+          <a href="{% url 'accounts:register' %}"
+             class="btn btn-outline-primary btn-sm me-2 d-none d-md-block">
+            Регистрация
+          </a>
+        {% endif %}
+
+        <!-- Корзина всегда видна -->
         <a href="{% url 'basket:cart_detail' %}" class="btn btn-warning text-white">
           <i class="bi bi-cart"></i>
           <span class="d-none d-md-inline">Корзина</span>
@@ -124,5 +187,5 @@
 }
 </style>
 
-<!-- Bootstrap JS -->
+<!-- Если Bootstrap JS уже подключён в base.html, этот тег можно убрать -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" defer></script>

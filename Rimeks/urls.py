@@ -29,8 +29,9 @@ urlpatterns = [
     path('services/', include('services.urls')),
     path('contact/', include('contact.urls')),
     path('basket/', include('basket.urls')),
-    path('accounts/', include('django.contrib.auth.urls')),
+    path('accounts/', include('accounts.urls')),
 ]
+
 
 
 if settings.DEBUG:

@@ -48,6 +48,7 @@ INSTALLED_APPS = [
     'services',
     'contact',
     'basket',
+    'accounts',
 ]
 
 MIDDLEWARE = [
@@ -159,3 +160,10 @@ if DEBUG:
 
 
 BASE_DIR = Path(__file__).resolve().parent.parent #попробовать удалить эту строку, если что-то сломается, вернуть обратно
+
+LOGIN_URL = 'accounts:login'
+LOGIN_REDIRECT_URL = 'homepage:home'        # тут поставь имя урла главной страницы
+LOGOUT_REDIRECT_URL = 'homepage:home'       # куда отправлять после выхода
+
+# чтобы работал reset пароля (можно пока оставить так — письма пойдут в консоль)
+EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend'
