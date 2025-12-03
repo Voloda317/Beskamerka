@@ -7,6 +7,8 @@ from akb.models import Akb
 
 from .models import CartItem
 from .utils import get_cart
+from django.contrib import messages
+from orders.models import Order, OrderItem
 
 
 def _get_product_model(product_type: str):
@@ -108,15 +110,56 @@ def change_quantity(request, item_id):
 @require_POST
 def checkout(request):
     """
-    Оформление заказа: очищаем корзину и показываем страницу с сообщением.
+    Оформление заказа: только для авторизованных пользователей.
+    Анонимного пользователя отправляем на страницу входа с сообщением.
     """
+
+    # если пользователь не залогинен — показываем уведомление и перекидываем
+    if not request.user.is_authenticated:
+        messages.warning(
+            request,
+            "Чтобы оформить заказ, вы должны быть зарегистрированы и войти в аккаунт."
+        )
+        return redirect("accounts:login")
+
     cart = get_cart(request)
 
     # если корзина пустая — просто вернём на страницу корзины
     if not cart.items.exists():
+        messages.info(request, "Ваша корзина пуста.")
         return redirect("basket:cart_detail")
 
-    # тут можно было бы создать сущность "Заказ", но пока просто чистим корзину
+    user = request.user
+    profile = getattr(user, "profile", None)
+
+    # создаём заказ
+    order = Order.objects.create(
+        user=user,
+        phone=profile.phone if profile else "",
+    )
+
+    # переносим позиции корзины в заказ
+    for item in cart.items.all():
+        product = item.product  # свойство из CartItem.get_product()
+
+        if product is not None:
+            product_name = str(product)
+        else:
+            # если товар уже удалён из каталога — всё равно что-то сохраним
+            product_name = f"{item.product_type} #{item.product_id}"
+
+        OrderItem.objects.create(
+            order=order,
+            product_type=item.product_type,
+            product_id=item.product_id,
+            product_name=product_name,
+            quantity=item.quantity,
+            price=item.price,
+        )
+
+    # очищаем корзину
     cart.items.all().delete()
 
-    return render(request, "basket/order_success.html")
+    messages.success(request, f"Ваш заказ №{order.id} успешно оформлен!")
+    return render(request, "basket/order_success.html", {"order": order})
+

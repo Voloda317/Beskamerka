@@ -13,31 +13,30 @@
     <link rel="stylesheet" href="{% static 'css/bootstrap.min.css' %}">
 </head>
 
-  <body>
+<body class="d-flex flex-column min-vh-100">
+
     {% include "includes/header.html" %}
 
-    <!-- БЛОК СООБЩЕНИЙ -->
+    <!-- Сообщения Django -->
+    {% if messages %}
     <div class="container mt-3">
-      {% if messages %}
         {% for message in messages %}
-          <div class="alert alert-{{ message.tags }} alert-dismissible fade show" role="alert">
+        <div class="alert alert-{{ message.tags|default:'info' }} alert-dismissible fade show" role="alert">
             {{ message }}
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Закрыть"></button>
+        </div>
         {% endfor %}
-      {% endif %}
     </div>
-    <!-- КОНЕЦ БЛОКА СООБЩЕНИЙ -->
+    {% endif %}
+    <!-- Конец сообщений -->
 
-    <main>
-      {% block content %}{% endblock %}
+    <main class="flex-grow-1">
+        {% block content %}{% endblock %}
     </main>
 
-    {% include "includes/footer.html" %}   
+    {% include "includes/footer.html" %}
+
     <script src="{% static 'js/bootstrap.min.js' %}"></script>
 
-  </body>
+</body>
 </html>
-
-
-
