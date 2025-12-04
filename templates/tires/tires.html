@@ -7,14 +7,12 @@
   <div class="container">
     <div class="row">
 
-      <!-- ===== Сайдбар фильтров ===== -->
       <div class="col-lg-3 mb-4">
         <div class="card shadow-sm border-0 filter-card">
           <div class="card-body">
 
             <form method="get" id="filter-form">
 
-              <!-- Размеры -->
               <div class="mb-4">
                 <div class="filter-section-title">Размеры</div>
                 <div class="filter-divider"></div>
@@ -49,7 +47,6 @@
                 </div>
               </div>
 
-              <!-- Сезон -->
               <div class="mb-4">
                 <div class="filter-section-title">Сезон</div>
                 <div class="filter-divider"></div>
@@ -62,8 +59,7 @@
                 {% endfor %}
               </div>
 
-              <!-- Шипы -->
-                <div class="mb-4">
+              <div class="mb-4">
                 <div class="filter-section-title">Шипы</div>
                 <div class="filter-divider"></div>
                 {% for choice in filter.form.thorns.field.choices %}
@@ -75,11 +71,9 @@
                 {% endfor %}
               </div>
 
-              <!-- Производитель и Модель -->
               <div class="mb-4">
                 <div class="accordion" id="accordionFilters">
 
-                  <!-- Производитель -->
                   <div class="mb-2">
                     <button class="btn filter-collapse-btn w-100 d-flex justify-content-between align-items-center"
                             type="button"
@@ -111,7 +105,6 @@
                     </div>
                   </div>
 
-                  <!-- Модель -->
                   <div>
                     <button class="btn filter-collapse-btn w-100 d-flex justify-content-between align-items-center"
                             type="button"
@@ -146,7 +139,6 @@
                 </div>
               </div>
 
-              <!-- Кнопки -->
               <div class="d-grid gap-2">
                 <button type="submit" class="btn btn-primary">Показать</button>
                 <a href="{% url 'tires:tires' %}" class="btn btn-outline-secondary">Сбросить</a>
@@ -158,7 +150,6 @@
         </div>
       </div>
 
-      <!-- ===== Карточки шин + пагинация ===== -->
       <div class="col-lg-9">
         <div class="d-flex justify-content-between align-items-center mb-3">
           <h5 class="mb-0">Найдено шин: {{ page_obj.paginator.count }}</h5>
@@ -188,15 +179,25 @@
               </div>
               <div class="card-footer bg-transparent border-top-0 mt-auto">
                 <div class="d-flex gap-2 align-items-center">
-                  <a href="#" class="btn btn-sm btn-primary flex-fill">В корзину</a>
 
-                  <!-- КНОПКА "ПОДРОБНЕЕ" ВЕДЁТ НА tire_detail -->
+                  {% if tire.quantity > 0 %}
+                    <form method="post"
+                          action="{% url 'basket:add_to_cart' 'tire' tire.id %}"
+                          class="flex-fill">
+                      {% csrf_token %}
+                      <input type="hidden" name="next" value="{{ request.get_full_path }}">
+                      <button type="submit" class="btn btn-sm btn-primary w-100">
+                        <i class="bi bi-cart-plus me-1"></i> В корзину
+                      </button>
+                    </form>
+                  {% else %}
+                    <button class="btn btn-sm btn-secondary flex-fill" disabled>Нет в наличии</button>
+                  {% endif %}
+
                   <a href="{% url 'tires:tire_detail' tire.id %}" class="btn btn-sm btn-outline-secondary flex-fill">
                     Подробнее
                   </a>
 
-
-                  </a>
                 </div>
               </div>
             </div>
@@ -212,7 +213,6 @@
           {% endfor %}
         </div>
 
-        <!-- ===== Пагинация ===== -->
         {% if is_paginated %}
         <nav aria-label="Страницы" class="d-flex justify-content-center mt-4">
           <ul class="pagination mb-0">
@@ -254,7 +254,6 @@
           </ul>
         </nav>
         {% endif %}
-        <!-- ===== /Пагинация ===== -->
 
       </div>
     </div>

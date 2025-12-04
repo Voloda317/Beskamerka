@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect, get_object_or_404
 from django.views.decorators.http import require_POST
+from django.contrib import messages
 
 from tires.models import Tire
 from disks.models import Disk
@@ -7,7 +8,6 @@ from akb.models import Akb
 
 from .models import CartItem
 from .utils import get_cart
-from django.contrib import messages
 from orders.models import Order, OrderItem
 
 
@@ -144,15 +144,18 @@ def checkout(request):
 
         if product is not None:
             product_name = str(product)
+            product_art = getattr(product, "art", "")
         else:
             # если товар уже удалён из каталога — всё равно что-то сохраним
             product_name = f"{item.product_type} #{item.product_id}"
+            product_art = ""
 
         OrderItem.objects.create(
             order=order,
             product_type=item.product_type,
             product_id=item.product_id,
             product_name=product_name,
+            product_art=product_art,
             quantity=item.quantity,
             price=item.price,
         )
@@ -162,4 +165,3 @@ def checkout(request):
 
     messages.success(request, f"Ваш заказ №{order.id} успешно оформлен!")
     return render(request, "basket/order_success.html", {"order": order})
-

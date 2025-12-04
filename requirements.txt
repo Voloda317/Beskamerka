@@ -1,4 +1,10 @@
-asgiref==3.9.1
-Django==5.2.6
-django-debug-toolbar==6.0.0
-sqlparse==0.5.3
+asgiref==3.11.0
+diff-match-patch==20241021
+Django==6.0
+django-bootstrap5==25.3
+django-debug-toolbar==6.1.0
+django-filter==25.2
+django-import-export==4.3.14
+psycopg2-binary==2.9.11
+sqlparse==0.5.4
+tablib==3.9.0

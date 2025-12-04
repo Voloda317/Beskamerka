@@ -38,10 +38,10 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django_bootstrap5',
+    'import_export', #для админки импорт экспорт
     'tires',
     'homepage',
     'disks',
-    'debug_toolbar',
     'django_filters',
     'akb',
     'sale',
@@ -60,7 +60,6 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
-    'debug_toolbar.middleware.DebugToolbarMiddleware',
 ]
 
 ROOT_URLCONF = 'Rimeks.urls'
@@ -153,10 +152,7 @@ INTERNAL_IPS = [
     'localhost',
 ] 
 
-# Для статических файлов в разработке
-if DEBUG:
-    import mimetypes
-    mimetypes.add_type("application/javascript", ".js", True)
+
 
 
 

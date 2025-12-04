@@ -17,7 +17,6 @@
 
     {% include "includes/header.html" %}
 
-    <!-- Сообщения Django -->
     {% if messages %}
     <div class="container mt-3">
         {% for message in messages %}
@@ -28,7 +27,6 @@
         {% endfor %}
     </div>
     {% endif %}
-    <!-- Конец сообщений -->
 
     <main class="flex-grow-1">
         {% block content %}{% endblock %}
